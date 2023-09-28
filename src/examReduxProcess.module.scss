@@ -1,0 +1,19 @@
+.wrapper {
+  margin-top: 1rem;
+  display: block;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+@media (min-width: 968px) {
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem;
+    width: 70%;
+    margin: 2rem auto;
+  }
+}

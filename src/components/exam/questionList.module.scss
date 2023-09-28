@@ -1,0 +1,33 @@
+.question {
+  font-size: 24px;
+  margin-left: 10px;
+}
+
+.option {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+  font-size: 20px;
+  cursor: pointer;
+
+  input {
+    min-width: 20px;
+    min-height: 20px;
+    cursor: pointer;
+  }
+
+  span {
+    font-size: 20px;
+  }
+
+}
+
+@media (min-width: 968px) {
+  .question {
+    font-size: 32px;
+  }
+  .option {
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,26 @@
+.button {
+  margin: 1rem;
+  font-size: 16px;
+  padding: .5rem 1rem;
+  background: #001000;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.5;
+}
+
+@media (min-width: 968px) {
+  .button {
+    margin: 0 .5rem;
+    font-size: 22px;
+  }
+
+  .button:hover {
+    opacity: 0.5;
+  }
+}

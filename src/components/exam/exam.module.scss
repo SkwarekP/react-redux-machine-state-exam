@@ -1,0 +1,41 @@
+.wrapper {
+  padding: 1rem;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .leave__btn {
+
+      button {
+        border: none;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        font-size: 18px;
+        background: darkred;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        opacity: .5;
+      }
+    }
+  }
+
+  .button__list {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (min-width: 968px) {
+  .wrapper {
+    padding: 1.5rem;
+    margin: 5rem auto;
+    width: 900px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+  }
+}

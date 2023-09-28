@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loader {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: transparent;
+    border: 5px solid #001000;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    transform: rotate(45deg);
+    animation: spin .75s linear infinite;
+  }
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

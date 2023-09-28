@@ -1,0 +1,26 @@
+div {
+  h2, .introduction {
+    margin: 1rem;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  .introduction {
+    font-size: 1.6rem;
+    line-height: 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  div {
+    .introduction {
+      margin: 0 auto;
+      font-size: 2rem;
+      line-height: 35px;
+      max-width: 70%;
+    }
+  }
+}

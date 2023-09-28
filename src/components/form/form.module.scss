@@ -1,0 +1,121 @@
+.wrapper {
+  padding: 1rem;
+
+  .header {
+    text-align: center;
+
+    .congratsImg {
+      width: 325px;
+      margin: 0 auto;
+
+      img {
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+    }
+
+    span {
+      font-size: 22px;
+      line-height: 30px;
+    }
+  }
+
+  .formWrapper {
+    text-align: center;
+    margin-top: 1.5rem;
+
+    form {
+      .row {
+        display: block;
+      }
+
+      .eachField {
+        margin: 1.5rem;
+
+        label {
+          font-size: 18px;
+          font-weight: bolder;
+        }
+
+        input {
+          display: block;
+          margin: .45rem auto;
+          outline: none;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+        }
+
+        select {
+          display: block;
+          margin: .5rem auto;
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          font-size: 14px;
+        }
+      }
+
+      .buttonList {
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    margin: 5rem auto;
+    width: 900px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    .header {
+      text-align: center;
+
+      .congratsImg {
+        width: 450px;
+        margin: 0 auto;
+
+        img {
+          max-width: 100%;
+          margin-bottom: 2rem;
+
+        }
+      }
+
+      span {
+        font-size: 30px;
+        line-height: 30px;
+      }
+    }
+
+    .formWrapper {
+      form {
+        .row {
+          display: flex;
+          justify-content: center;
+        }
+
+        .eachField {
+
+          label {
+            font-size: 20px;
+          }
+
+          input {
+            width: 250px;
+            font-size: 18px;
+          }
+
+          select {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+  }
+}

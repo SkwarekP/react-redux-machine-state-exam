@@ -1,0 +1,94 @@
+.wrapper {
+  padding: 1rem;
+  background: #000000;
+
+  .step {
+    padding: 1rem 0;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .filledCircle {
+      background: #FFFFFF !important;
+
+      span {
+        color: black !important;
+      }
+    }
+
+    .actual {
+      background: wheat !important;
+
+      span {
+        color: #000000 !important;
+      }
+    }
+
+    .circle {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      position: relative;
+      background: #434341;
+      cursor: pointer;
+      border: none;
+
+      span {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 20px;
+        font-weight: 700;
+        color: white;
+      }
+    }
+
+    .circle:hover {
+      opacity: 0.5
+    }
+
+    .line {
+      width: 60px;
+      height: 3px;
+      background: gray;
+    }
+
+    .filledLine {
+      background: white !important;
+    }
+
+    .hideLine {
+      display: none;
+    }
+
+    div:last-child > div {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 968px) {
+  .wrapper {
+    padding: .5rem 5px;
+
+    .step {
+      padding:.5rem 0;
+      display: flex;
+      gap: .25rem;
+
+      .circle {
+        width: 28px;
+        height: 28px;
+
+        span {
+          font-size: 14px;
+          font-weight: 700;
+          color: white;
+        }
+      }
+    }
+  }
+}
