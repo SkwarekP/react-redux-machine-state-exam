@@ -9,6 +9,9 @@ import {Tooltip} from "../../ui/atoms/tooltip/tooltip";
 import {QuestionList} from "./questionList";
 import {ExamTracking} from "../examtracking/examTracking";
 import {fetchExamKeywords} from "../../redux/thunks";
+import {Modal} from "../../ui/modal/modal";
+import {createPortal} from "react-dom";
+import {Backdrop} from "../../ui/modal/backdrop";
 
 export interface IQuestions {
     examQuestions: Questions
@@ -19,7 +22,11 @@ export const Exam = ({examQuestions}: IQuestions) => {
     const [answer, setAnswer] = useState<string | undefined>(undefined);
     const [isValid, setIsValid] = useState(true);
     const [tooltipMessage, setTooltipMessage] = useState<string>("")
+    const [isModalShown, setIsModalShown] = useState<boolean>(false)
     const state = useSelector((state: RootState) => state.exam)
+
+    const handleModal = () => dispatch(fetchExamKeywords())
+    const closeModal = () => setIsModalShown(false);
 
     const handleNextQuestion = () => {
         if (!answer) {
@@ -83,7 +90,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
         <div className={classes.wrapper}>
             <div className={classes.header}>
                 <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions.questions.length}</h3></div>
-                <div className={classes.leave__btn}><button onClick={() => dispatch(fetchExamKeywords())}>X</button></div>
+                <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}>X</button></div>
             </div>
             <QuestionList questions={examQuestions} onAnswer={useCallback((answer_: string | undefined) => setAnswer(answer_), [])} />
             <div className={classes.button__list}>
@@ -94,6 +101,8 @@ export const Exam = ({examQuestions}: IQuestions) => {
                     next
                 </Button>
             </div>
+            {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
+            {isModalShown && createPortal(<Backdrop onClose={closeModal}/>, document.getElementById('backdrop')!)}
             {!isValid && <Tooltip isError={false} message={tooltipMessage}/>}
         </div>
         </>
