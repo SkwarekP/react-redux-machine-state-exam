@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import {getStore} from "./redux/store";
 import {Header} from "./ui/header/header";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
-import {Loggers} from "./components/logs/Loggers";
+import {ManageExamsPage} from "./components/manageExams/ManageExamsPage";
 
 function App() {
 
@@ -19,10 +19,10 @@ function App() {
           )
       },
       {
-          path: "logs",
+          path: "manageExams",
           element: (
               <Header>
-                <Loggers />
+                <ManageExamsPage />
               </Header>
           )
       }

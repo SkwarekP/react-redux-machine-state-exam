@@ -29,12 +29,12 @@ export const Header = ({children}: IChildrenProps) => {
                 </NavLink>
             </div>
             <div className={classes.menu__item}>
-                {/*<NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}*/}
-                {/*         onClick={() => setIsModalShown(true)}*/}
-                {/*         to={!isModalShown ? 'logs' : "/"}*/}
-                {/*>*/}
-                {/*    Logs*/}
-                {/*</NavLink>*/}
+                <NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}
+                         // onClick={() => setIsModalShown(true)}
+                         to='manageExams'
+                >
+                    Manage Exams
+                </NavLink>
             </div>
             <div className={classes.menu__item}>
                 <div className={classes.social__media}>
