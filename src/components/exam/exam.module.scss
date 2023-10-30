@@ -7,17 +7,19 @@
     align-items: center;
 
     .leave__btn {
+      height: 30px;
+      width: 30px;
 
       button {
         border: none;
         border-radius: 50%;
-        height: 30px;
-        width: 30px;
+        padding: .25rem .5rem;
         font-size: 18px;
         background: darkred;
         color: white;
         cursor: pointer;
       }
+
       button:hover {
         opacity: .5;
       }
