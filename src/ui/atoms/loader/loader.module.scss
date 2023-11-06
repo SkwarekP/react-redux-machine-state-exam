@@ -27,3 +27,12 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 768px) {
+  .wrapper {
+    .loader {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}

@@ -15,10 +15,11 @@ export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
     const dispatch: Dispatch = useDispatch()
 
     return (
-        <div className={classes.wrapper}>
+        <>
+        {examQuestions ? <div className={classes.wrapper}>
             <div className={classes.step}>
-                {examQuestions.questions.map((item, index) => {
-                    return <div key={item.id} className={classes.step}>
+                {examQuestions?.questions?.map((item, index) => {
+                        return <div key={item.id} className={classes.step}>
                             <button
                                 onClick={() => {
                                     if(state){
@@ -41,6 +42,7 @@ export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
                     }
                 )})
             </div>
-        </div>
+        </div> : <div></div>}
+        </>
     )
 }

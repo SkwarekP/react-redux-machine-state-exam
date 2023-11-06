@@ -2,20 +2,36 @@ import classes from './header.module.scss'
 import {IChildrenProps} from "../../types";
 import linkedinIcon from "../atoms/icons/icons8-linkedin-48.png";
 import githubIcon from "../atoms/icons/icons8-github-48.png";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {createPortal} from "react-dom";
 import {Modal} from "../modal/modal";
 import {Backdrop} from "../modal/backdrop";
-import {useState} from "react";
+import React, {useState} from "react";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 
 const activeLinkColor =  (isActive: boolean) => {return {color: isActive ? 'orangered' : 'inherit'}}
 
 export const Header = ({children}: IChildrenProps) => {
 
+    const state = useSelector((state: RootState) => state.exam)
+    const navigate = useNavigate();
+    const location = useLocation();
     const [isModalShown, setIsModalShown] = useState(false);
 
     const handleModal = () => {
         setIsModalShown(false);
+        navigate("manageExams");
+    }
+
+    const handleNavigate = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault();
+
+        if(location.pathname === '/manageExams') return
+
+        if(state.type === "QUESTION" || state.type === "SUMMARY" || state.type === "FINISH_EXAM") setIsModalShown(true);
+
+        else navigate("manageExams");
     }
 
     return (
@@ -29,12 +45,12 @@ export const Header = ({children}: IChildrenProps) => {
                 </NavLink>
             </div>
             <div className={classes.menu__item}>
-                {/*<NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}*/}
-                {/*         onClick={() => setIsModalShown(true)}*/}
-                {/*         to={!isModalShown ? 'logs' : "/"}*/}
-                {/*>*/}
-                {/*    Logs*/}
-                {/*</NavLink>*/}
+                <NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}
+                         onClick={handleNavigate}
+                         to='manageExams'
+                >
+                    Manage Exams
+                </NavLink>
             </div>
             <div className={classes.menu__item}>
                 <div className={classes.social__media}>

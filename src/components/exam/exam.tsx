@@ -12,6 +12,7 @@ import {fetchExamKeywords} from "../../redux/thunks";
 import {Modal} from "../../ui/modal/modal";
 import {createPortal} from "react-dom";
 import {Backdrop} from "../../ui/modal/backdrop";
+import {Error} from "../../ui/error/error";
 
 export interface IQuestions {
     examQuestions: Questions
@@ -81,30 +82,34 @@ export const Exam = ({examQuestions}: IQuestions) => {
         return () => clearTimeout(showErrorTooltipCooldown);
     }, [isValid])
 
+    const onAnswer = useCallback((answer_: string | undefined) => setAnswer(answer_), [])
+
     return (
         <>
-        <ExamTracking examQuestions={examQuestions} onShowTooltip={(message: string) => {
-            setTooltipMessage(message)
-            setIsValid(false)
-        }}/>
-        <div className={classes.wrapper}>
-            <div className={classes.header}>
-                <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions.questions.length}</h3></div>
-                <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}>X</button></div>
-            </div>
-            <QuestionList questions={examQuestions} onAnswer={useCallback((answer_: string | undefined) => setAnswer(answer_), [])} />
-            <div className={classes.button__list}>
-                <Button onClick={handlePreviousQuestion}>
-                    previous
-                </Button>
-                <Button onClick={handleNextQuestion} width={100}>
-                    next
-                </Button>
-            </div>
-            {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
-            {isModalShown && createPortal(<Backdrop onClose={closeModal}/>, document.getElementById('backdrop')!)}
-            {!isValid && <Tooltip isError={false} message={tooltipMessage}/>}
-        </div>
+            {examQuestions ? <>
+                <ExamTracking examQuestions={examQuestions} onShowTooltip={(message: string) => {
+                    setTooltipMessage(message)
+                    setIsValid(false)
+                }}/>
+                <div className={classes.wrapper}>
+                    <div className={classes.header}>
+                        <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions?.questions?.length}</h3></div>
+                        <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}>X</button></div>
+                    </div>
+                    <QuestionList questions={examQuestions} onAnswer={onAnswer} />
+                    <div className={classes.button__list}>
+                        <Button onClick={handlePreviousQuestion}>
+                            previous
+                        </Button>
+                        <Button onClick={handleNextQuestion} width={100}>
+                            next
+                        </Button>
+                    </div>
+                    {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
+                    {isModalShown && createPortal(<Backdrop onClose={closeModal}/>, document.getElementById('backdrop')!)}
+                    {!isValid && <Tooltip isError={false} message={tooltipMessage}/>}
+                </div>
+            </> : <Error alternativeMessage={"There is no data in database."}/>}
         </>
     )
 }

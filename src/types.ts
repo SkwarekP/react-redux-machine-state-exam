@@ -40,7 +40,11 @@ export interface IPersonalInfo {
 export type ExamState =
     | {
     type: "CHOOSE_EXAM"
-    exams: string[]
+    keywords: string[]
+    }
+    | {
+    type: "MANAGE_EXAMS"
+    existingExams: Questions[]
     }
     | {
     type: "LOADING"

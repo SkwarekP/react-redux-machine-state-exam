@@ -1,9 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
-import {examSlice} from "./examSlice";
+import {examSlice, examsListSlice} from "./examSlice";
 
 export const getStore = () => configureStore({
     reducer: {
-        exam: examSlice.reducer
+        exam: examSlice.reducer,
+        examsList: examsListSlice.reducer
     }
 })
 

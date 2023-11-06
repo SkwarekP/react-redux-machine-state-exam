@@ -22,10 +22,11 @@ export const ExamReduxProcess = () => {
         dispatch(fetchExamKeywords())
     }, [dispatch])
 
+
     switch (state.type){
         case "QUESTION":
             switch (examType){
-                case state.questions.examType:
+                case state?.questions?.examType:
                     return <Exam examQuestions={state.questions} />
                 default:
                     return <></>
@@ -48,17 +49,19 @@ export const ExamReduxProcess = () => {
             }
         case "EXCEPTION":
             return <Error error={state.error}/>
-        default:
+        case "CHOOSE_EXAM":
             return  <>
-            <Introduction />
-            <div className={classes.wrapper}>
-                {state?.exams?.map((exam, idx) => {
-                    if(exam === "SEESHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>C#</Button>
-                    if(exam === "FSHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>F#</Button>
-                    return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>{exam}</Button>
-                })}
-            </div>
+                <Introduction />
+                <div className={classes.wrapper}>
+                    {state?.keywords?.map((exam, idx) => {
+                        if(exam === "SEESHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>C#</Button>
+                        if(exam === "FSHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>F#</Button>
+                        return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>{exam}</Button>
+                    })}
+                </div>
             </>
+        default:
+            return <>OTHER</>
     }
     
 }
