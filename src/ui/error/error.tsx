@@ -6,11 +6,12 @@ import {useDispatch} from "react-redux";
 import {fetchExamKeywords} from "../../redux/thunks";
 
 interface IError {
-    error: AxiosError
+    error?: AxiosError,
+    alternativeMessage?: string
 }
 
 
-export const Error = ({error}: IError) => {
+export const Error = ({error, alternativeMessage}: IError) => {
 
     const dispatch: Dispatch = useDispatch();
 
@@ -18,8 +19,9 @@ export const Error = ({error}: IError) => {
         <div className={classes.wrapper}>
             <div className={classes.error}>
                 <h3>Something went wrong...</h3>
-                <p>Message: <span>{error.message}</span></p>
-                <p>status: <span>{error.request.status}</span></p>
+                {error ? <div><p>Message: <span>{error?.message}</span></p>
+                    <p>status: <span>{error?.request?.status}</span></p></div> :
+                    <p>{alternativeMessage}</p>}
                 <Button onClick={() => dispatch(fetchExamKeywords())}>Back</Button>
             </div>
         </div>

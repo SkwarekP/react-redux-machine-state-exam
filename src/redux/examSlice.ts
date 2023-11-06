@@ -2,6 +2,19 @@ import {createSlice} from "@reduxjs/toolkit";
 import {ExamState, IAnswer, IPersonalInfo, IResult, Questions} from "../types";
 import {AxiosError} from "axios";
 
+export const examsListSlice = createSlice({
+    name: "examList",
+    initialState: [] as string[],
+    reducers: {
+        setExamsList(state, action) {
+            if(state.length === 0) {
+                action.payload.map((item: string, idx: number) => {
+                    return state.push(item)
+                })
+            }
+        }
+    }
+})
 export const examSlice = createSlice({
     name: "exam",
     initialState: {
@@ -11,10 +24,9 @@ export const examSlice = createSlice({
         loading: state => ({type: "LOADING"}),
         finishExam: (state) => {
             if(state.type === "QUESTION"){
-                const answers_ = [...state.answers]
                 return {
                     type: "FINISH_EXAM",
-                    result: answers_,
+                    result: [...state.answers],
                     questions: state.questions
                 }
             }
@@ -43,9 +55,21 @@ export const examSlice = createSlice({
         ),
         chooseExam: (state, action: {
             payload: {
-                exams: string[]
+                keywords: string[]
             }
-        }) => ({type: "CHOOSE_EXAM", exams: action.payload.exams}),
+        }) => ({type: "CHOOSE_EXAM", keywords: action.payload.keywords}),
+        manageExams: (state, action: {
+            payload: {
+                existingExams: Questions[]
+            }
+        }) => {
+            if(state.type === "CHOOSE_EXAM"){
+                return {type: "MANAGE_EXAMS", existingExams: action.payload.existingExams, keywords: state.keywords}
+            }
+            else {
+                return {type: "MANAGE_EXAMS", existingExams: action.payload.existingExams}
+            }
+        },
         exam: (state, action: {
             payload: {
                 answers: IAnswer[],
@@ -123,7 +147,9 @@ export const examSlice = createSlice({
             }
         }) => ({type: "EXCEPTION", error: action.payload.error})
     }
-
 })
 
+
+
 export const actions = examSlice.actions;
+export const examsListActions = examsListSlice.actions;
