@@ -13,6 +13,7 @@ export interface Questions {
         options: string[],
         correctAnswer: string
     }[];
+    createdAt?: string;
 }
 
 export interface IAnswer {

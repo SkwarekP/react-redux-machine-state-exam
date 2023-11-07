@@ -47,9 +47,9 @@ export const DataTable = () => {
                         {state.type === "MANAGE_EXAMS" ? state?.existingExams?.map((item, index) => {
                             return <div className={classes.value}>
                                 {idx === 0 && <span> {index + 1} </span>}
-                                {idx === 1 && <span> {item.examType}</span>}
-                                {idx === 2 && <span> {item?.questions?.length}</span>}
-                                {idx === 3 && <span> 10.10.2023</span>}
+                                {idx === 1 && <span> {item?.examType ? item?.examType : "---"}</span>}
+                                {idx === 2 && <span> {item?.questions?.length ? item?.questions?.length : "---"}</span>}
+                                {idx === 3 && <span> {item?.createdAt ? item?.createdAt : "---" }</span>}
                             </div>
                         }) : <Loader />}
                     </div>
