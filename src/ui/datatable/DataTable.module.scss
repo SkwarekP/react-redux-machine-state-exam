@@ -32,3 +32,13 @@
 
   }
 }
+
+@media (min-width: 768px) {
+  .wrapper {
+      .row {
+        .header {
+          font-size: 16px;
+        }
+      }
+  }
+}

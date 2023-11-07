@@ -23,8 +23,7 @@ export const fetchAllExams = (exams: Array<string>) => {
     return async (dispatch: Dispatch) => {
         dispatch(actions.loading())
         const arr: Questions[] = []
-
-        for(let i=0; i<exams.length - 1; i++){
+        for(let i=0; i<exams.length; i++){
            await axios.get(`${URL}${exams[i]}.json`)
                 .then((response) => arr.push(response.data))
                .catch((error: AxiosError) => dispatch(actions.catchException({error})))
