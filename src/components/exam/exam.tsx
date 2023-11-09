@@ -98,6 +98,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
         }, 1000)
 
         return () => clearTimeout(showErrorTooltipCooldown);
+        // eslint-disable-next-line
     }, [isValid, isSavedOrUpdated.isSaved, isSavedOrUpdated.isUpdated])
 
     const onAnswer = useCallback((answer_: string | undefined) => setAnswer(answer_), [])
