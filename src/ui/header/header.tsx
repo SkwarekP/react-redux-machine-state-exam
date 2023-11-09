@@ -64,11 +64,6 @@ export const Header = ({children}: IChildrenProps) => {
                             <img src={githubIcon} alt="github" />
                         </button>
                     </div>
-                    {/*<div className={classes.social__media__img__container}>*/}
-                    {/*    <button onClick={() => window.open("https://github.com/SkwarekP", "_blank")}>*/}
-                    {/*        <img src={mailIcon} alt="mail" />*/}
-                    {/*    </button>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         </div>
