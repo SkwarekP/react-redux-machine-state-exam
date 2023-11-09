@@ -15,6 +15,7 @@ const activeLinkColor =  (isActive: boolean) => {return {color: isActive ? 'gray
 export const Header = ({children}: IChildrenProps) => {
 
     const state = useSelector((state: RootState) => state.exam)
+
     const navigate = useNavigate();
     const location = useLocation();
     const [isModalShown, setIsModalShown] = useState(false);
@@ -24,14 +25,16 @@ export const Header = ({children}: IChildrenProps) => {
         navigate("manageExams");
     }
 
-    const handleNavigate = (event: React.MouseEvent<HTMLElement>) => {
+    const handleNavigate = (event: React.MouseEvent<HTMLElement>, path: string) => {
         event.preventDefault();
 
-        if(location.pathname === '/manageExams') return
+        if(path === location.pathname) return
 
-        if(state.type === "QUESTION" || state.type === "SUMMARY" || state.type === "FINISH_EXAM") setIsModalShown(true);
+        if(state.type === "LOADING") return
 
-        else navigate("manageExams");
+        if(state.type === "QUESTION" || state.type === "SUMMARY" || state.type === "FINISH_EXAM") setIsModalShown(true)
+        else navigate(path)
+
     }
 
     return (
@@ -39,6 +42,7 @@ export const Header = ({children}: IChildrenProps) => {
         <div className={classes.wrapper__header}>
             <div className={classes.menu__item}>
                 <NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}
+                         onClick={(event) => handleNavigate(event, "/")}
                          to="/"
                 >
                     Exams
@@ -46,7 +50,7 @@ export const Header = ({children}: IChildrenProps) => {
             </div>
             <div className={classes.menu__item}>
                 <NavLink style={({isActive, isPending}) => activeLinkColor(isActive)}
-                         onClick={handleNavigate}
+                         onClick={(event) => handleNavigate(event, "/manageExams")}
                          to='manageExams'
                 >
                     Manage Exams
