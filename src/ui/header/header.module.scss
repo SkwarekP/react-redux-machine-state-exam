@@ -14,7 +14,7 @@
     z-index:200;
 
     .menu__item {
-      font-size: 22px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
 
@@ -58,7 +58,7 @@
   }
 }
 
-@media (min-width: 968px) {
+@media (min-width: 768px) {
 
   .wrapper {
 

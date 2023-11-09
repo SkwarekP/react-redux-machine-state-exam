@@ -1,15 +1,16 @@
 div {
   h2, .introduction {
-    margin: 3rem 1rem 1rem 1rem;
+    margin: 1rem;
     text-align: center;
   }
 
   h2 {
-    font-size: 3rem;
+    margin-top:1rem;
+    font-size: 2rem;
   }
 
   .introduction {
-    font-size: 1.6rem;
+    font-size: 1rem;
     line-height: 25px;
   }
 }
@@ -21,6 +22,9 @@ div {
       font-size: 2rem;
       line-height: 35px;
       max-width: 70%;
+    }
+    h2 {
+      font-size: 3rem;
     }
   }
 }

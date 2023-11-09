@@ -1,9 +1,9 @@
 .wrapper {
   padding: .5rem;
-  margin: 2rem .25rem;
+  margin: 1rem .25rem;
   display: flex;
   gap: 1rem;
-  border: 1px solid #001000;
+  //border: 1px solid #001000;
 
   .row {
     display: flex;
@@ -13,9 +13,9 @@
     //border: 2px solid green;
 
     .header {
-      padding: .1rem .2rem;
+      padding: .1rem .25rem;
       background: lightgray;
-      font-size: 14px;
+      font-size: 10px;
 
       h3 {
         margin: 0;
@@ -26,7 +26,7 @@
       //border: 2px solid blue;
 
       span {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
@@ -35,9 +35,17 @@
 
 @media (min-width: 768px) {
   .wrapper {
+    //max-width: 700px;
       .row {
         .header {
           font-size: 16px;
+        }
+
+        .value {
+
+          span {
+            font-size: 14px;
+          }
         }
       }
   }
