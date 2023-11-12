@@ -11,6 +11,7 @@ interface IExamTracking {
 
 export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
 
+    console.log('test commit');
     const state = useSelector((state: RootState) => state.exam.type === "QUESTION" && state.exam)
     const dispatch: Dispatch = useDispatch()
 
