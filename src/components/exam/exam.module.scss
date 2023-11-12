@@ -6,6 +6,17 @@
     justify-content: space-between;
     align-items: center;
 
+    div {
+      h3 {
+          font-size:14px;
+      }
+    }
+    div:last-child {
+      button {
+        font-size:14px;
+      }
+    }
+
     .leave__btn {
       height: 30px;
       width: 30px;
@@ -27,7 +38,7 @@
   }
 
   .button__list {
-    margin-top: 2rem;
+    margin:2rem 0 2rem -.5rem;
     display: flex;
     justify-content: space-between;
   }
@@ -39,5 +50,13 @@
     margin: 5rem auto;
     width: 900px;
     box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+
+    .header {
+      div {
+        h3 {
+          margin:0;
+        }
+      }
+    }
   }
 }
