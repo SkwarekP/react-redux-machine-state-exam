@@ -9,6 +9,7 @@ import {ManageExamsPage} from "./components/manageExams/ManageExamsPage";
 
 function App() {
 
+  console.log("chuj");
   const router = createBrowserRouter([
       {
           path: "/",
