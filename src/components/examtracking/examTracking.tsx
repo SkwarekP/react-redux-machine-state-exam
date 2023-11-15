@@ -42,7 +42,7 @@ export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
                         <img style={{transform: "translate(-60%,-50%)"}}
                              src={leftArrowIcon} alt="right arrow"/>
                     </button>
-                    <div className={`${classes.line}`}/>
+                    <div className={`${classes.line} ${classes.filledLine}`}/>
                 </>}
                 {examQuestions?.questions?.map((item, index) => {
                         if (isPaginationNeeded) {
