@@ -1,0 +1,34 @@
+.add__exam {
+  margin: 1rem .25rem;
+
+  Button {
+    background: green;
+    display: flex;
+    align-items: center;
+    gap:.5rem;
+    margin:.5rem;
+    padding:.5rem .75rem;
+    font-weight: 700;
+
+    img {
+      max-width: 24px;
+    }
+  }
+}
+
+@media (min-width: 968px) {
+  .add__exam {
+    margin: 1rem .25rem;
+
+    Button {
+      background: green;
+      display: flex;
+      align-items: center;
+      gap:.5rem;
+      font-size:18px;
+      img {
+        max-width: 28px;
+      }
+    }
+  }
+}

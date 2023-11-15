@@ -1,3 +1,4 @@
+
 .wrapper {
   padding: .5rem;
   margin: 1rem .25rem;
@@ -36,17 +37,17 @@
 @media (min-width: 768px) {
   .wrapper {
     //max-width: 700px;
-      .row {
-        .header {
-          font-size: 16px;
-        }
+    .row {
+      .header {
+        font-size: 16px;
+      }
 
-        .value {
+      .value {
 
-          span {
-            font-size: 14px;
-          }
+        span {
+          font-size: 14px;
         }
       }
+    }
   }
 }
