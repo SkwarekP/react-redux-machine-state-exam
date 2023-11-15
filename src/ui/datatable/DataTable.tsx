@@ -23,7 +23,6 @@ export const DataTable = () => {
 
     useEffect(() => {
         // if(state.type === "CHOOSE_EXAM") return
-        console.log("1");
         if(examsListState.length !== 0) return
 
         dispatch(fetchExamKeywords2())
@@ -31,7 +30,6 @@ export const DataTable = () => {
 
     useEffect(() => {
         // if(state.type === "CHOOSE_EXAM") return
-        console.log("2");
         dispatch(fetchAllExams(examsListState))
     }, [examsListState, dispatch])
 
