@@ -49,7 +49,7 @@ export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
                             if ((Math.floor(examQuestions.questions.length / 2) >= item.id) && !nextQuestions) {
                                 return <QuestionButton item={item} index={index} onShowTooltip={onShowTooltip}/>
                             }
-                            if ((Math.floor(examQuestions.questions.length / 2) <= item.id) && nextQuestions) {
+                            if ((Math.floor(examQuestions.questions.length / 2) < item.id) && nextQuestions) {
                                 return <QuestionButton item={item} index={index} onShowTooltip={onShowTooltip}/>
                             }
                         } else {
