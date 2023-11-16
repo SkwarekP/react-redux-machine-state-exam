@@ -10,46 +10,6 @@
     justify-content: center;
     flex-wrap: wrap;
 
-    .filledCircle {
-      background: #FFFFFF !important;
-
-      span {
-        color: black !important;
-      }
-    }
-
-    .actual {
-      background: wheat !important;
-
-      span {
-        color: #000000 !important;
-      }
-    }
-
-    .circle {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      position: relative;
-      background: #434341;
-      cursor: pointer;
-      border: none;
-
-      span {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 20px;
-        font-weight: 700;
-        color: white;
-      }
-    }
-
-    .circle:hover {
-      opacity: 0.5
-    }
-
     .line {
       width: 60px;
       height: 3px;
@@ -60,15 +20,36 @@
       background: white !important;
     }
 
-    .hideLine {
-      display: none;
-    }
-
     div:last-child > div {
       display: none;
     }
+
+    }
+
+    .circle {
+      width: 35px;
+      height:35px;
+      border-radius: 50%;
+      position: relative;
+      background: #FFFFFF;
+      cursor: pointer;
+      border: none;
+
+      img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-40%, -50%);
+        width: 22px;
+      }
+    }
+
+    .circle:hover {
+      opacity: 0.5
+    }
+
   }
-}
+
 
 @media (max-width: 968px) {
   .wrapper {
@@ -82,6 +63,10 @@
       .circle {
         width: 28px;
         height: 28px;
+
+        img {
+          width:18px;
+        }
 
         span {
           font-size: 14px;
