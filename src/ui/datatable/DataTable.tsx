@@ -5,8 +5,11 @@ import {useEffect} from "react";
 import {fetchAllExams, fetchExamKeywords2} from "../../redux/thunks";
 import {ExamState} from "../../types";
 import {Loader} from "../atoms/loader/loader";
+import filledStarIcon from "../atoms/icons/filledStar.svg";
+import starIcon from "../atoms/icons/star.svg";
 
-const headers: string[] = ["ID", "Exam's name", "Questions amount", "Created at"]
+const headers: string[] = ["ID", "Category", "Exam's name", "Questions amount", "Status", "Time", "Difficulty", "Created at"]
+const stars: number[] = [1, 2, 3, 4, 5];
 
 export const DataTable = () => {
 
@@ -15,15 +18,15 @@ export const DataTable = () => {
     const examsListState = useSelector((state: RootState) => state.examsList)
 
     useEffect(() => {
-        if(state.type === "CHOOSE_EXAM"){
-            if(state.keywords) dispatch(fetchAllExams(state.keywords))
+        if (state.type === "CHOOSE_EXAM") {
+            if (state.keywords) dispatch(fetchAllExams(state.keywords))
         }
         //eslint-disable-next-line
     }, [dispatch, state.type])
 
     useEffect(() => {
         // if(state.type === "CHOOSE_EXAM") return
-        if(examsListState.length !== 0) return
+        if (examsListState.length !== 0) return
 
         dispatch(fetchExamKeywords2())
     }, [examsListState, dispatch])
@@ -45,13 +48,28 @@ export const DataTable = () => {
                         {state.type === "MANAGE_EXAMS" ? state?.existingExams?.map((item, index) => {
                             return <div className={classes.value}>
                                 {idx === 0 && <span> {index + 1} </span>}
-                                {idx === 1 && <span> {item?.examType ? item?.examType : "---"}</span>}
-                                {idx === 2 && <span> {item?.questions?.length ? item?.questions?.length : "---"}</span>}
-                                {idx === 3 && <span> {item?.createdAt ? item?.createdAt : "---" }</span>}
+                                {idx === 1 && <span> {item?.category ? item?.category.toUpperCase() : "---"}</span>}
+                                {idx === 2 && <span> {item?.examType ? item?.examType : "---"}</span>}
+                                {idx === 3 && <span> {item?.questions?.length ? item?.questions?.length : "---"}</span>}
+                                {idx === 4 && <span> {item?.status ? item?.status.toUpperCase() : "---"}</span>}
+                                {idx === 5 && <span> {item?.time ? item?.time.toUpperCase() : "---"}</span>}
+                                {idx === 6 && <span> {item?.difficultyLevel ?
+                                    <div className={classes.starsWrapper}>
+                                        {stars.map((star) => {
+                                                    if(star <= item.difficultyLevel!) {
+                                                        return <img src={filledStarIcon} alt="Filled star" />
+                                                    }
+                                                   return <img src={starIcon}  alt="Star Icon"/>
+                                                })}
+                                    </div> :
+                                    "---"}
+                                </span>}
+                                {idx === 7 && <span> {item?.createdAt ? item?.createdAt.toUpperCase() : "---"}</span>}
                             </div>
-                        }) : <Loader />}
+                        }) : <Loader/>}
                     </div>
-                )})}
+                )
+            })}
         </div>
     )
 }

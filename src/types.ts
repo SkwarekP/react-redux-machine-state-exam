@@ -5,6 +5,8 @@ export interface IChildrenProps {
     children: ReactNode
 }
 
+type statusType = "Shared" | "Private" | "Public";
+
 export interface Questions {
     examType?: string | ExamType,
     questions: {
@@ -14,6 +16,10 @@ export interface Questions {
         correctAnswer: string
     }[];
     createdAt?: string;
+    category?: string;
+    time?: string;
+    difficultyLevel?: number;
+    status?: statusType;
 }
 
 export interface IQuestionsItem {

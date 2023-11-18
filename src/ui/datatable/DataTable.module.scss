@@ -3,7 +3,9 @@
   padding: .5rem;
   margin: 1rem .25rem;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  max-width:100%;
+  overflow: auto;
   //border: 1px solid #001000;
 
   .row {
@@ -17,6 +19,8 @@
       padding: .1rem .25rem;
       background: lightgray;
       font-size: 10px;
+      min-width:100px;
+      //border:2px solid yellow;
 
       h3 {
         margin: 0;
@@ -24,20 +28,32 @@
     }
 
     .value {
-      //border: 2px solid blue;
+      flex: 1;
+      //border:2px solid brown;
 
       span {
-        font-size: 12px;
+        font-size: 10px;
+        border:none;
+
+        .starsWrapper {
+
+          img {
+            width: 12px;
+          }
+        }
       }
+
     }
 
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 968px) {
   .wrapper {
-    //max-width: 700px;
+
     .row {
+      justify-content: center;
+
       .header {
         font-size: 16px;
       }
@@ -46,7 +62,16 @@
 
         span {
           font-size: 14px;
+
+          .starsWrapper {
+            //margin-top:.3rem;
+
+            img {
+              width:17.5px;
+            }
+          }
         }
+
       }
     }
   }
