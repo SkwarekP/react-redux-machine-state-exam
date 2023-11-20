@@ -9,7 +9,6 @@ import {ManageExamsPage} from "./components/manageExams/ManageExamsPage";
 
 function App() {
 
-  console.log("Jebac ukraine i putina"); 
 
   const router = createBrowserRouter([
       {
