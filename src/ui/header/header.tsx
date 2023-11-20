@@ -4,7 +4,7 @@ import linkedinIcon from "../atoms/icons/icons8-linkedin-48.png";
 import githubIcon from "../atoms/icons/icons8-github-48.png";
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {createPortal} from "react-dom";
-import {Modal} from "../modal/modal";
+import {ModalWarning} from "../modal/modal";
 import {Backdrop} from "../modal/backdrop";
 import React, {useState} from "react";
 import {useSelector} from "react-redux";
@@ -71,7 +71,7 @@ export const Header = ({children}: IChildrenProps) => {
                 </div>
             </div>
         </div>
-            {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={() => setIsModalShown(false)}/>, document.getElementById('modal')!)}
+            {isModalShown && createPortal(<ModalWarning onConfirm={handleModal} onClose={() => setIsModalShown(false)}/>, document.getElementById('modal')!)}
             {isModalShown && createPortal(<Backdrop onClose={() => setIsModalShown(false)}/>, document.getElementById('backdrop')!)}
             {children}
         </div>

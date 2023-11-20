@@ -1,12 +1,13 @@
 import classes from "./modal.module.scss"
 import {Button} from "../atoms/buttons/button";
 import warnIcon from "../atoms/icons/icons8-bulb-emoji-32.png"
-interface IModal {
+
+export interface IModal {
     onConfirm: () => void;
     onClose: () => void;
 }
 
-export const Modal = ({onConfirm, onClose} : IModal) => {
+export const ModalWarning = ({onConfirm, onClose} : IModal) => {
 
     return (
         <div className={classes.wrapper}>

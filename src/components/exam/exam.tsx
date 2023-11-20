@@ -9,7 +9,7 @@ import {Tooltip} from "../../ui/atoms/tooltip/tooltip";
 import {QuestionList} from "./questionList";
 import {ExamTracking} from "../examtracking/examTracking";
 import {fetchExamKeywords} from "../../redux/thunks";
-import {Modal} from "../../ui/modal/modal";
+import {ModalWarning} from "../../ui/modal/modal";
 import {createPortal} from "react-dom";
 import {Backdrop} from "../../ui/modal/backdrop";
 import {Error} from "../../ui/error/error";
@@ -124,7 +124,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
                             next
                         </Button>
                     </div>
-                    {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
+                    {isModalShown && createPortal(<ModalWarning onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
                     {isModalShown && createPortal(<Backdrop onClose={closeModal}/>, document.getElementById('backdrop')!)}
                     {!isValid && <Tooltip isWarning message={tooltipMessage}/>}
                     {(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) && <Tooltip message={tooltipMessage} isSuccess />}
