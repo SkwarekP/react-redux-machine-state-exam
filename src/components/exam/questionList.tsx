@@ -22,9 +22,6 @@ export const QuestionList: React.FC<IQuestionListProps> = ({onAnswer, questions}
         }
     }, [state, onAnswer])
 
-    if (state.type === "QUESTION") {
-
-    }
     return <>
         {state.type === "QUESTION" && questions?.questions?.map((item, idx) => {
                 if (state.counter - 1 === idx) {

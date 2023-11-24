@@ -1,9 +1,9 @@
 .wrapper {
-  padding: 1rem;
+  padding: 1rem 1rem .25rem 1rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -45%);
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
   min-width: unset;
   width: 80%;
@@ -14,31 +14,52 @@
 
   .topHeader__wrapper {
     //border: 1px solid red;
-
     .row {
       display: flex;
       //align-items: center;
+      margin: 0 0 .25rem 0;
       justify-content: space-between;
+
+      .row__item {
+        //flex:1 1 100%;
+        text-align: left;
+
+        div {
+          min-width: 100px;
+        }
+
+        label {
+          font-size: 12px;
+          width: 100%;
+        }
+      }
 
 
       select, input {
         margin: .25rem 0;
         cursor: pointer;
         background: unset;
+        //opacity:.4;
+        //all:unset;
         //border:1px solid black;
       }
 
       select {
-        border-top: none;
-        border-left: none;
-        border-right: none;
-        margin-top: .25rem;
-        padding: 0;
+        //border-top: none;
+        //border-left: none;
+        //border-bottom: none;
+        //border-right: none;
+        float: left;
+        margin-top: .5em;
+        padding: .1rem;
       }
 
       input {
         max-width: 125px;
         display: block;
+        border-top: none;
+        border-left: none;
+        border-right: none;
       }
 
     }
@@ -47,27 +68,27 @@
       gap: .35rem;
     }
 
-    .row:last-child {
-      margin-top: .5rem;
-      align-items: center
-    }
+    //.row:last-child {
+    //  margin-top: .5rem;
+    //  align-items: center
+    //}
   }
 
   .add__question__panel {
-    margin-top: 2rem;
+    margin-top: .5rem;
 
     .add__answer__button {
       margin-top: 1rem;
       display: flex;
-      gap:.5rem;
+      gap: .5rem;
       align-items: center;
 
       button {
-        all:unset;
+        all: unset;
       }
 
       .plus__icon__wrapper {
-        width:22px;
+        width: 22px;
         cursor: pointer;
 
         img {
@@ -77,13 +98,13 @@
     }
 
     .question__content {
-      width:100%;
+      width: 100%;
 
       input {
         border-left: none;
         border-top: none;
         border-right: none;
-        width:95%;
+        width: 95%;
         background: whitesmoke;
         padding: .5rem;
       }
@@ -96,7 +117,26 @@
       justify-content: space-between;
 
       .select__answer {
+        display: flex;
+        gap: .25rem;
         margin: 0 .5rem 0 0;
+
+        button {
+          //all: unset;
+          //border: 1px solid black;
+        }
+
+        .checked__icon__wrapper {
+          width: 22px;
+          display: flex;
+          background: gray;
+          cursor: pointer;
+
+          img {
+            max-width: 100%;
+          }
+        }
+
       }
 
       .delete__and__selectCorrect {
@@ -111,6 +151,12 @@
       }
 
     }
+  }
+  .next__question__wrapper {
+    margin-top: .5rem;
+  }
+  .confirm__btn__wrapper {
+    text-align: center;
   }
 }
 
