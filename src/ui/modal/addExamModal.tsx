@@ -1,19 +1,16 @@
 import classes from "./addExamModal.module.scss";
 import {IModal} from "./modal";
-import plusIcon from "../atoms/icons/icons8-plus-48.png";
-import checkedIcon from "../atoms/icons/icons8-check-32.png";
+import starIcon from "../atoms/icons/star.svg";
+import filledStarIcon from "../atoms/icons/filledStar.svg";
+import crossIcon from "../atoms/icons/cross.png";
 
 import React, {useEffect, useState} from "react";
 import {Button} from "../atoms/buttons/button";
 
 interface IAnswers {
+    answerId: number,
     answer: string | undefined,
     isCorrect: boolean
-}
-
-interface IExamAnswers {
-    answerId: number,
-    answers: IAnswers
 }
 
 type QuestionsAmount = 5 | 15 | 30 | 45 | 60
@@ -29,13 +26,31 @@ interface IGeneralData {
     examTime: ExamTime
 }
 
+interface IQuestionsAndAnswers {
+    questions: {
+        id: number,
+        question: string | undefined,
+        options: IAnswers[],
+        correctAnswer: string | undefined
+    },
+    // testName: string | undefined
+    // category: string | undefined
+    // difficultyLevel: number | undefined
+    // questionsAmount: QuestionsAmount
+    // answersAmount: AnswersAmount | undefined
+    // examTime: ExamTime
+}
+
+const stars: number[] = [1, 2, 3, 4, 5];
+
+
 export const AddExamModal = ({onConfirm, onClose}: IModal) => {
 
-    const [examAnswers, setExamAnswers] = useState<IExamAnswers[]>([
-        {answerId: 1, answers: {answer: undefined, isCorrect: false}},
-        {answerId: 2, answers: {answer: undefined, isCorrect: false}},
-        {answerId: 3, answers: {answer: undefined, isCorrect: false}},
-        {answerId: 4, answers: {answer: undefined, isCorrect: false}},
+    const [examAnswers, setExamAnswers] = useState<IAnswers[]>([
+        {answerId: 1, answer: undefined, isCorrect: false},
+        {answerId: 2, answer: undefined, isCorrect: false},
+        {answerId: 3, answer: undefined, isCorrect: false},
+        {answerId: 4, answer: undefined, isCorrect: false},
     ])
 
     const [generalData, setGeneralData] = useState<IGeneralData>({
@@ -47,59 +62,197 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
         testName: undefined
     })
 
-    const [currentAnswer, setCurrentAnswer] = useState<number | undefined>(undefined)
+    const [questionsAndAnswers, setQuestionsAndAnswers] = useState<IQuestionsAndAnswers[]>(
+        [
+            {
+                questions: {
+                    id: 1,
+                    question: undefined,
+                    options: [
+                        {answerId: 1, answer: undefined, isCorrect: false},
+                        {answerId: 2, answer: undefined, isCorrect: false},
+                        {answerId: 3, answer: undefined, isCorrect: false},
+                        {answerId: 4, answer: undefined, isCorrect: false},
+                    ],
+                    correctAnswer: undefined
+                },
+                // testName: generalData.testName,
+                // answersAmount: 4,
+                // category: 'programming',
+                // difficultyLevel: undefined,
+                // examTime: "No time limit",
+                // questionsAmount: 5,
+            },
+        ]
+    )
 
-    const addAnswer = () => {
+    const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-        const newAnswer = [...examAnswers, {answerId: 1, answers: {answer: "yes", isCorrect: false}}]
-        if (examAnswers.length === 4) return
-        setExamAnswers(newAnswer);
-    }
+    const [currentQuestion, setCurrentQuestion] = useState<string | undefined>(undefined)
 
     const eachAnswerHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.target)
-
-        const updateEachField = examAnswers.map((item) => {
-            if (event.target.id === `answerField-1`) {
-                console.log("hej1")
-                return {...item, answers: {answer: event.target.value}}
-            } else if (event.target.id === "answerField-2") {
-                console.log("hej2")
-                return {...item, answers: {...item.answers, answer: event.target.value}}
-            } else if (event.target.id === "answerField-3") {
-                console.log("hej3")
-                return {...item, answers: {...item.answers, answer: event.target.value}}
-            } else if (event.target.id === "answerField-4") {
-                console.log("hej4")
-                return {...item, answers: {...item.answers, answer: event.target.value}}
+        const update = examAnswers.map((item, index) => {
+            if (item.answerId.toString() === event.target.id) {
+                return {...item, answer: event.target.value}
             }
-            // return {...item}
+            return {...item}
         })
-        console.log(updateEachField);
-
-        // setExamAnswers(updateEachField);
+        setExamAnswers(update)
     }
 
-    // useEffect(() => {
-    //     console.log(examAnswers)
-    // }, [examAnswers])
+    const chooseAnswersAmountHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
+
+        setGeneralData({...generalData, answersAmount: +event.target.value as AnswersAmount})
+        // setQuestionsAndAnswers()
+        if (event.target.value.toString() === "2") {
+            setExamAnswers([
+                {answerId: 1, answer: undefined, isCorrect: false},
+                {answerId: 2, answer: undefined, isCorrect: false},
+            ])
+            setQuestionsAndAnswers(
+                [
+                    {
+                        questions: {
+                            id: 1,
+                            question: undefined,
+                            options: [
+                                {answerId: 1, answer: undefined, isCorrect: false},
+                                {answerId: 2, answer: undefined, isCorrect: false},
+                            ],
+                            correctAnswer: undefined
+                        },
+                        // testName: generalData.testName,
+                        // answersAmount: 4,
+                        // category: 'programming',
+                        // difficultyLevel: undefined,
+                        // examTime: "No time limit",
+                        // questionsAmount: 5,
+                    },
+                ]
+            )
+        } else if (event.target.value.toString() === "3") {
+            setExamAnswers([
+                {answerId: 1, answer: undefined, isCorrect: false},
+                {answerId: 2, answer: undefined, isCorrect: false},
+                {answerId: 3, answer: undefined, isCorrect: false},
+            ])
+            setQuestionsAndAnswers(
+                [
+                    {
+                        questions: {
+                            id: 1,
+                            question: undefined,
+                            options: [
+                                {answerId: 1, answer: undefined, isCorrect: false},
+                                {answerId: 2, answer: undefined, isCorrect: false},
+                                {answerId: 3, answer: undefined, isCorrect: false},
+                            ],
+                            correctAnswer: undefined
+                        },
+                        // testName: generalData.testName,
+                        // answersAmount: 4,
+                        // category: 'programming',
+                        // difficultyLevel: undefined,
+                        // examTime: "No time limit",
+                        // questionsAmount: 5,
+                    },
+                ]
+            )
+        } else if (event.target.value.toString() === "4") {
+            setExamAnswers([
+                {answerId: 1, answer: undefined, isCorrect: false},
+                {answerId: 2, answer: undefined, isCorrect: false},
+                {answerId: 3, answer: undefined, isCorrect: false},
+                {answerId: 4, answer: undefined, isCorrect: false},
+            ])
+            setQuestionsAndAnswers(
+                [
+                    {
+                        questions: {
+                            id: 1,
+                            question: undefined,
+                            options: [
+                                {answerId: 1, answer: undefined, isCorrect: false},
+                                {answerId: 2, answer: undefined, isCorrect: false},
+                                {answerId: 3, answer: undefined, isCorrect: false},
+                                {answerId: 4, answer: undefined, isCorrect: false},
+                            ],
+                            correctAnswer: undefined
+                        },
+                        // testName: generalData.testName,
+                        // answersAmount: 4,
+                        // category: 'programming',
+                        // difficultyLevel: undefined,
+                        // examTime: "No time limit",
+                        // questionsAmount: 5,
+                    },
+                ]
+            )
+        }
+    }
 
     useEffect(() => {
-        console.log(generalData)
-    }, [generalData])
+        console.log(examAnswers)
+    }, [examAnswers])
+
+
+    useEffect(() => {
+        console.log(questionsAndAnswers)
+    }, [questionsAndAnswers])
+
+    const confirmGeneralOptionsHandler = () => {
+        if (isDisabled) return
+
+        if (generalData.testName && generalData.difficultyLevel) setIsDisabled(true);
+    }
+
+    const nextQuestionHandler = () => {
+        const correctAnswer_ = examAnswers.find((item) => {
+            if(item.isCorrect) return item.answer;
+            else return undefined
+        });
+
+        const update = questionsAndAnswers.map((item, index) => {
+            return {
+                ...item,
+                questions: {
+                    ...item.questions,
+                    question: currentQuestion,
+                    correctAnswer: correctAnswer_!.answer ,
+                    options: examAnswers
+                }
+            }
+        })
+        setQuestionsAndAnswers(update)
+    }
 
     return (
         <div className={classes.wrapper}>
+            <div className={classes.close__modal}>
+                <button onClick={onClose}><img src={crossIcon} alt="crossIcon"/></button>
+            </div>
             <div className={classes.topHeader__wrapper}>
                 <div className={classes.row}>
                     <div className={classes.row__item}>
-                        <label>Test name</label>
-                        <input type="text" onChange={(event) => setGeneralData({...generalData, testName: event.target.value})}/>
+                        <div>
+                            <label>Test name</label>
+                        </div>
+                        <input type="text"
+                               onChange={(event) => setGeneralData({...generalData, testName: event.target.value})}
+                               disabled={isDisabled}
+                               className={isDisabled ? classes.input__disabled : undefined}
+                        />
                     </div>
                     <div className={classes.row__item}>
-                        <label>Category</label>
                         <div>
-                            <select onChange={(event) => setGeneralData({...generalData, category: event.target.value})}>
+                            <label>Category</label>
+                        </div>
+                        <div>
+                            <select
+                                onChange={(event) => setGeneralData({...generalData, category: event.target.value})}
+                                disabled={isDisabled}
+                                className={isDisabled ? classes.input__disabled : undefined}
+                            >
                                 <option>programming</option>
                                 <option>language</option>
                                 <option>geography</option>
@@ -113,13 +266,30 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                         <div>
                             <label>Difficulty level</label>
                         </div>
-                        <input type="number" onChange={(event) => setGeneralData({...generalData, difficultyLevel: +event.target.value})}/>
+                        <div className={classes.stars__wrapper}>
+                            {stars.map((item) => (
+                                !generalData.difficultyLevel ? <img
+                                    id={(item).toString()}
+                                    onClick={(event: any) => setGeneralData({
+                                        ...generalData,
+                                        difficultyLevel: +event.target.id
+                                    })} src={starIcon} alt="starIcon"
+                                /> : item <= generalData.difficultyLevel && <img src={filledStarIcon} alt="filledStar"/>
+                            ))}
+                        </div>
                     </div>
                     <div className={classes.row__item}>
                         <div>
                             <label>Questions amount</label>
                         </div>
-                        <select onChange={(event) => setGeneralData({...generalData, questionsAmount: +event.target.value as QuestionsAmount}) }>
+                        <select
+                            onChange={(event) => setGeneralData({
+                                ...generalData,
+                                questionsAmount: +event.target.value as QuestionsAmount
+                            })}
+                            disabled={isDisabled}
+                            className={isDisabled ? classes.input__disabled : undefined}
+                        >
                             <option>5</option>
                             <option>15</option>
                             <option>30</option>
@@ -132,30 +302,11 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                         <div>
                             <label>Answers amount</label>
                         </div>
-                        <select onChange={(event) => {
-                            setGeneralData({...generalData, answersAmount: +event.target.value as AnswersAmount})
-                            if(event.target.value.toString() === "2") {
-                                setExamAnswers([
-                                    {answerId: 1, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 2, answers: {answer: undefined, isCorrect: false}},
-                                ])
-                            }
-                            else if(event.target.value.toString() === "3") {
-                                setExamAnswers([
-                                    {answerId: 1, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 2, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 3, answers: {answer: undefined, isCorrect: false}}
-                                ])
-                            }
-                            else if(event.target.value.toString() === "4") {
-                                setExamAnswers([
-                                    {answerId: 1, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 2, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 3, answers: {answer: undefined, isCorrect: false}},
-                                    {answerId: 4, answers: {answer: undefined, isCorrect: false}}
-                                ])
-                            }
-                        }}>
+                        <select
+                            onChange={(event) => chooseAnswersAmountHandler(event)}
+                            disabled={isDisabled}
+                            className={isDisabled ? classes.input__disabled : undefined}
+                        >
                             <option>4</option>
                             <option>3</option>
                             <option>2</option>
@@ -166,8 +317,15 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                             <div>
                                 <label>Exam time</label>
                             </div>
-                            <select>
-                                <option defaultValue="No time limit">No time limit </option>
+                            <select
+                                onChange={(event) => setGeneralData({
+                                    ...generalData,
+                                    examTime: +event.target.value as ExamTime
+                                })}
+                                disabled={isDisabled}
+                                className={isDisabled ? classes.input__disabled : undefined}
+                            >
+                                <option defaultValue="No time limit">No time limit</option>
                                 <option>5</option>
                                 <option>10</option>
                                 <option>15</option>
@@ -181,44 +339,67 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                     </div>
                 </div>
                 <div className={classes.confirm__btn__wrapper}>
-                    <Button disabled={!generalData.testName}>Confirm</Button>
+                    <Button disabled={(!generalData.testName || !generalData.difficultyLevel) || isDisabled}
+                            onClick={confirmGeneralOptionsHandler}>
+                        Confirm
+                    </Button>
                 </div>
             </div>
             <div className={classes.add__question__panel}>
                 <div className={classes.question__content}>
-                    <input type="text" placeholder="Pytanie testowe"/>
+                    <input
+                        type="text"
+                        placeholder="Question..."
+                        disabled={!isDisabled}
+                        onChange={(event) => setCurrentQuestion(event.target.value)}
+                    />
                 </div>
-                {/*<div className={classes.add__answer__button}>*/}
-                {/*    <button onClick={addAnswer}*/}
-                {/*            className={classes.plus__icon__wrapper}>*/}
-                {/*        <img src={plusIcon} alt="plus Icon"/>*/}
-                {/*    </button>*/}
-                {/*    <span>Add answer</span>*/}
-                {/*</div>*/}
-                {examAnswers.map((item, index) => {
-                    return <div className={classes.add__answer}>
-                        <div className={classes.select__answer}>
-                            <input type="text"
-                                   id={`answerField-${item.answerId.toString()}`}
-                                   onChange={(event) => eachAnswerHandler(event)}
-                            />
-                        </div>
-                        <div className={classes.delete__and__selectCorrect}>
-                            <label htmlFor={`a-${item.answerId}`}>
-                                <input
-                                    type="radio"
-                                    id={`a-${item.answerId}`}
-                                    onChange={(e) => console.log(e.target)}
-                                    value={item.answers.answer}
-                                    name="correctAnswer"
+                <div className={classes.questions__amount}>
+                    <span>{questionsAndAnswers.length}/{generalData.questionsAmount}</span>
+                </div>
+                {questionsAndAnswers.map((item, index) => (
+                    item.questions.options.map((option, idx) => (
+                        <div className={classes.add__answer}>
+                            <div className={classes.select__answer}>
+                                <input type="text"
+                                       id={(idx + 1).toString()}
+                                       placeholder={`Answer... #${idx + 1}`}
+                                       className={!isDisabled ? classes.border__gray : undefined}
+                                       disabled={!isDisabled}
+                                       onChange={(event) => eachAnswerHandler(event)}
                                 />
-                            </label>
+                            </div>
+                            <div className={classes.delete__and__selectCorrect}>
+                                <label htmlFor={`a-${item.questions.id}`}>
+                                    <input
+                                        type="radio"
+                                        id={(idx + 1).toString()}
+                                        disabled={!isDisabled}
+                                        onChange={(event) => {
+                                            const update = examAnswers.map((item) => {
+                                                if (+event.target.id === item.answerId) {
+                                                    return {...item, isCorrect: true}
+                                                }
+                                                return {...item, isCorrect: false}
+                                            })
+                                            setExamAnswers(update);
+                                        }}
+                                        value={item.questions.correctAnswer}
+                                        name="correctAnswer"
+                                    />
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                })}
+                    ))
+                ))}
             </div>
-            <div className={`${classes.confirm__btn__wrapper} ${classes.next__question__wrapper}`}>
-                <Button>Next question</Button>
+            <div className={`${classes.next__question__wrapper}`}>
+                <Button
+                    disabled={!isDisabled}
+                    onClick={nextQuestionHandler}
+                >
+                    Add question
+                </Button>
             </div>
         </div>
     )

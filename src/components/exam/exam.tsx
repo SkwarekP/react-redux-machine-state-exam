@@ -13,6 +13,7 @@ import {ModalWarning} from "../../ui/modal/modal";
 import {createPortal} from "react-dom";
 import {Backdrop} from "../../ui/modal/backdrop";
 import {Error} from "../../ui/error/error";
+import crossIcon from "../../ui/atoms/icons/cross.png";
 
 export interface IQuestions {
     examQuestions: Questions
@@ -113,7 +114,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
                 <div className={classes.wrapper}>
                     <div className={classes.header}>
                         <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions?.questions?.length}</h3></div>
-                        <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}>X</button></div>
+                        <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}><img src={crossIcon} alt="crossIcon" /></button></div>
                     </div>
                     <QuestionList questions={examQuestions} onAnswer={onAnswer} />
                     <div className={classes.button__list}>

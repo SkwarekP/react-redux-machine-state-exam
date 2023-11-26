@@ -12,6 +12,19 @@
   background: #FFFFFF;
   overflow: auto;
 
+  .close__modal {
+    text-align: right;
+
+    button {
+      all: unset;
+      cursor: pointer;
+
+      img {
+        max-width: 20px;
+      }
+    }
+  }
+
   .topHeader__wrapper {
     //border: 1px solid red;
     .row {
@@ -30,7 +43,30 @@
 
         label {
           font-size: 12px;
-          width: 100%;
+          font-weight: 700;
+        }
+
+        .stars__wrapper {
+          display: flex;
+          margin-top: .25rem;
+
+          img {
+            max-width: 16px;
+            cursor: pointer;
+          }
+
+          img:hover {
+            opacity: 0.5;
+          }
+        }
+
+        .stars__wrapper img:hover {
+          width: 100px;
+        }
+
+        .input__disabled {
+          all: unset;
+          font-size: 12px;
         }
       }
 
@@ -39,9 +75,8 @@
         margin: .25rem 0;
         cursor: pointer;
         background: unset;
-        //opacity:.4;
-        //all:unset;
-        //border:1px solid black;
+        font-size: 12px;
+
       }
 
       select {
@@ -60,12 +95,10 @@
         border-top: none;
         border-left: none;
         border-right: none;
+        border-bottom: 1px solid black;
+
       }
 
-    }
-
-    .time {
-      gap: .35rem;
     }
 
     //.row:last-child {
@@ -76,6 +109,14 @@
 
   .add__question__panel {
     margin-top: .5rem;
+
+    .questions__amount {
+      margin: .5rem 0;
+
+      span {
+        font-size: 12px;
+      }
+    }
 
     .add__answer__button {
       margin-top: 1rem;
@@ -116,6 +157,7 @@
       align-items: center;
       justify-content: space-between;
 
+
       .select__answer {
         display: flex;
         gap: .25rem;
@@ -137,6 +179,22 @@
           }
         }
 
+        input {
+          border-top: none;
+          border-left: none;
+          border-right: none;
+          border-bottom: 1px solid black;
+          padding:.25rem 0 .25rem 0;
+        }
+
+        input::placeholder {
+          font-size: 12px;
+        }
+
+        .border__gray {
+          border-bottom: 1px solid lightgray;
+        }
+
       }
 
       .delete__and__selectCorrect {
@@ -152,11 +210,27 @@
 
     }
   }
+
   .next__question__wrapper {
     margin-top: .5rem;
+    text-align: center;
+
+    button {
+      padding: .5rem;
+      font-size: 12px;
+      font-weight: 700;
+    }
   }
+
   .confirm__btn__wrapper {
     text-align: center;
+
+    button {
+      margin: .25rem 0 .5rem 0;
+      padding: .5rem;
+      font-size: 12px;
+      font-weight: 700;
+    }
   }
 }
 
