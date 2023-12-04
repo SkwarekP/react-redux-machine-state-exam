@@ -6,15 +6,16 @@ interface IExamTypeButton {
     children: ReactNode;
     width?: number;
     type?: 'submit' | 'reset' | 'button' | undefined;
-    disabled?: boolean
+    disabled?: boolean;
+    className?: string | undefined
 }
 
-export const Button = ({children, onClick, width, type, disabled}: IExamTypeButton) => {
+export const Button = ({children, onClick, width, type, disabled, className}: IExamTypeButton) => {
 
     return (
     <button
         type={type}
-        className={classes.button}
+        className={`${classes.button} ${className}`}
         onClick={onClick}
         style={width? {width: `${width}px`} : disabled ? {opacity: 0.3} : {}}
     >

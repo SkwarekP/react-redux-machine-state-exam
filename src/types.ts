@@ -1,5 +1,6 @@
 import {ReactNode} from "react";
 import {AxiosError} from "axios";
+import {AnswersAmount, ExamTime, IAnswers, QuestionsAmount} from "./ui/modal/addExamModal";
 
 export interface IChildrenProps {
     children: ReactNode
@@ -7,7 +8,7 @@ export interface IChildrenProps {
 
 type statusType = "Shared" | "Private" | "Public";
 
-export interface Questions {
+export interface IQuestions {
     examType?: string | ExamType,
     questions: {
         id: number,
@@ -19,7 +20,25 @@ export interface Questions {
     category?: string;
     time?: string;
     difficultyLevel?: number;
+    questionsAmount?: QuestionsAmount;
+    answersAmount?: AnswersAmount;
     status?: statusType;
+}
+
+export interface INewExamData {
+    questions: {
+        id: number,
+        question: string | undefined,
+        options: IAnswers[],
+        correctAnswer: string | undefined
+    }[],
+    questionsCounter: number
+    examType?: string | undefined
+    category: string | undefined
+    difficultyLevel: number | undefined
+    questionsAmount: QuestionsAmount
+    answersAmount: AnswersAmount | undefined
+    examTime: ExamTime
 }
 
 export interface IQuestionsItem {
@@ -58,7 +77,7 @@ export type ExamState =
 }
     | {
     type: "MANAGE_EXAMS"
-    existingExams: Questions[]
+    existingExams: IQuestions[]
 }
     | {
     type: "LOADING"
@@ -68,7 +87,7 @@ export type ExamState =
     answers: IAnswer[]
     counter: number
     answer?: string
-    questions: Questions
+    questions: IQuestions
 }
     | {
     type: "EXCEPTION",
@@ -77,11 +96,11 @@ export type ExamState =
     | {
     type: "FINISH_EXAM"
     result: IAnswer[]
-    questions: Questions
+    questions: IQuestions
 }
     | {
     type: "SUMMARY"
     personalInfo: IPersonalInfo
     result: IResult[]
-    questions: Questions
+    questions: IQuestions
 }

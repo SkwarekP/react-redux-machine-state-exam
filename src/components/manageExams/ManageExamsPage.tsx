@@ -5,7 +5,7 @@ import plusIcon from "../../ui/atoms/icons/icons8-plus-48.png"
 import {createPortal} from "react-dom";
 import {AddExamModal} from "../../ui/modal/addExamModal";
 import {Backdrop} from "../../ui/modal/backdrop";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {fetchExamKeywords} from "../../redux/thunks";
 import {Dispatch} from "../../redux/store";
 import {useDispatch} from "react-redux";
@@ -15,8 +15,13 @@ export const ManageExamsPage = () => {
     const dispatch: Dispatch = useDispatch();
     const [isModalShown, setIsModalShown] = useState(false);
 
-    const handleModal = () => dispatch(fetchExamKeywords())
+    const handleModal = () => {
+        setIsModalShown(false);
+        dispatch(fetchExamKeywords());
+    }
+
     const closeModal = () => setIsModalShown(false);
+
 
     return (
         <div>

@@ -2,11 +2,11 @@ import classes from "./questionList.module.scss";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import React, {useEffect, useState} from "react";
-import {Questions} from "../../types";
+import {IQuestions} from "../../types";
 
 interface IQuestionListProps {
     onAnswer: (answer: string | undefined) => void
-    questions: Questions
+    questions: IQuestions
 }
 
 export const QuestionList: React.FC<IQuestionListProps> = ({onAnswer, questions}) => {

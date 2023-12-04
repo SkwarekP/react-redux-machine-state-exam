@@ -1,6 +1,6 @@
 import classes from "./exam.module.scss"
 import {Button} from "../../ui/atoms/buttons/button";
-import {Questions} from "../../types";
+import {IQuestions} from "../../types";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "../../redux/store";
 import {actions} from "../../redux/examSlice";
@@ -15,8 +15,8 @@ import {Backdrop} from "../../ui/modal/backdrop";
 import {Error} from "../../ui/error/error";
 import crossIcon from "../../ui/atoms/icons/cross.png";
 
-export interface IQuestions {
-    examQuestions: Questions
+export interface Questions {
+    examQuestions: IQuestions
 }
 
 interface ISavedUpdated {
@@ -24,7 +24,7 @@ interface ISavedUpdated {
     isUpdated: boolean
 }
 
-export const Exam = ({examQuestions}: IQuestions) => {
+export const Exam = ({examQuestions}: Questions) => {
     const dispatch: Dispatch = useDispatch();
     const [answer, setAnswer] = useState<string | undefined>(undefined);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -40,6 +40,8 @@ export const Exam = ({examQuestions}: IQuestions) => {
     const closeModal = () => setIsModalShown(false);
 
     const handleNextQuestion = () => {
+        if(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) return
+
         if (!answer) {
             setTooltipMessage("At least one option has to be checked.");
             setIsValid(false);
@@ -72,6 +74,8 @@ export const Exam = ({examQuestions}: IQuestions) => {
 
 
     const handlePreviousQuestion = () => {
+        if(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) return
+
         if (state.type === "QUESTION") {
             if (state.counter === 1) {
                 setTooltipMessage("There is no previous question.")
