@@ -5,7 +5,7 @@ import plusIcon from "../../ui/atoms/icons/icons8-plus-48.png"
 import {createPortal} from "react-dom";
 import {AddExamModal} from "../../ui/modal/addExamModal";
 import {Backdrop} from "../../ui/modal/backdrop";
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import {fetchExamKeywords} from "../../redux/thunks";
 import {Dispatch} from "../../redux/store";
 import {useDispatch} from "react-redux";
