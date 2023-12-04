@@ -18,17 +18,14 @@
     }
 
     .leave__btn {
-      height: 30px;
-      width: 30px;
 
       button {
-        border: none;
-        border-radius: 50%;
-        padding: .2rem .5rem;
-        font-size: 18px;
-        background: #001000;
-        color: white;
+        all:unset;
         cursor: pointer;
+
+        img {
+          max-width: 20px;
+        }
       }
 
       button:hover {

@@ -1,14 +1,14 @@
 import classes from "./examTracking.module.scss"
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {Questions} from "../../types";
+import {IQuestions} from "../../types";
 import {useEffect, useState} from "react";
 import {QuestionButton} from "./QuestionButton";
 import rightArrowIcon from "../../ui/atoms/icons/right-arrow.png";
 import leftArrowIcon from "../../ui/atoms/icons/left.png";
 
 interface IExamTracking {
-    examQuestions: Questions
+    examQuestions: IQuestions
     onShowTooltip: (message: string) => void
 }
 

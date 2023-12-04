@@ -9,7 +9,6 @@ import {ManageExamsPage} from "./components/manageExams/ManageExamsPage";
 
 function App() {
 
-
   const router = createBrowserRouter([
       {
           path: "/",

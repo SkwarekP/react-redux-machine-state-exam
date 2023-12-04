@@ -1,6 +1,6 @@
 import classes from "./summary.module.scss"
 import {Button} from "../../ui/atoms/buttons/button";
-import {IQuestions} from "../exam/exam";
+import {Questions} from "../exam/exam";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "../../redux/store";
@@ -10,7 +10,7 @@ import {useNote} from "../hooks/useNote";
 import {ExamType} from "../../types";
 import {fetchExamKeywords} from "../../redux/thunks";
 
-export const Summary = ({examQuestions}: IQuestions) => {
+export const Summary = ({examQuestions}: Questions) => {
     const state = useSelector((state: RootState) => state.exam)
     const dispatch: Dispatch = useDispatch();
     const summary = state.type === "SUMMARY";

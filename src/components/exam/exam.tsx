@@ -1,6 +1,6 @@
 import classes from "./exam.module.scss"
 import {Button} from "../../ui/atoms/buttons/button";
-import {Questions} from "../../types";
+import {IQuestions} from "../../types";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "../../redux/store";
 import {actions} from "../../redux/examSlice";
@@ -9,13 +9,14 @@ import {Tooltip} from "../../ui/atoms/tooltip/tooltip";
 import {QuestionList} from "./questionList";
 import {ExamTracking} from "../examtracking/examTracking";
 import {fetchExamKeywords} from "../../redux/thunks";
-import {Modal} from "../../ui/modal/modal";
+import {ModalWarning} from "../../ui/modal/modal";
 import {createPortal} from "react-dom";
 import {Backdrop} from "../../ui/modal/backdrop";
 import {Error} from "../../ui/error/error";
+import crossIcon from "../../ui/atoms/icons/cross.png";
 
-export interface IQuestions {
-    examQuestions: Questions
+export interface Questions {
+    examQuestions: IQuestions
 }
 
 interface ISavedUpdated {
@@ -23,7 +24,7 @@ interface ISavedUpdated {
     isUpdated: boolean
 }
 
-export const Exam = ({examQuestions}: IQuestions) => {
+export const Exam = ({examQuestions}: Questions) => {
     const dispatch: Dispatch = useDispatch();
     const [answer, setAnswer] = useState<string | undefined>(undefined);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -39,6 +40,8 @@ export const Exam = ({examQuestions}: IQuestions) => {
     const closeModal = () => setIsModalShown(false);
 
     const handleNextQuestion = () => {
+        if(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) return
+
         if (!answer) {
             setTooltipMessage("At least one option has to be checked.");
             setIsValid(false);
@@ -71,6 +74,8 @@ export const Exam = ({examQuestions}: IQuestions) => {
 
 
     const handlePreviousQuestion = () => {
+        if(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) return
+
         if (state.type === "QUESTION") {
             if (state.counter === 1) {
                 setTooltipMessage("There is no previous question.")
@@ -113,7 +118,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
                 <div className={classes.wrapper}>
                     <div className={classes.header}>
                         <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions?.questions?.length}</h3></div>
-                        <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}>X</button></div>
+                        <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}><img src={crossIcon} alt="crossIcon" /></button></div>
                     </div>
                     <QuestionList questions={examQuestions} onAnswer={onAnswer} />
                     <div className={classes.button__list}>
@@ -124,7 +129,7 @@ export const Exam = ({examQuestions}: IQuestions) => {
                             next
                         </Button>
                     </div>
-                    {isModalShown && createPortal(<Modal onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
+                    {isModalShown && createPortal(<ModalWarning onConfirm={handleModal} onClose={closeModal}/>, document.getElementById('modal')!)}
                     {isModalShown && createPortal(<Backdrop onClose={closeModal}/>, document.getElementById('backdrop')!)}
                     {!isValid && <Tooltip isWarning message={tooltipMessage}/>}
                     {(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) && <Tooltip message={tooltipMessage} isSuccess />}

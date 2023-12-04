@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ExamState, IAnswer, IPersonalInfo, IResult, Questions} from "../types";
+import {ExamState, IAnswer, IPersonalInfo, IResult, IQuestions} from "../types";
 import {AxiosError} from "axios";
 
 export const examsListSlice = createSlice({
@@ -48,7 +48,7 @@ export const examSlice = createSlice({
         },
         startExam: (state, action: {
             payload: {
-                questions: Questions
+                questions: IQuestions
             }
         }) => (
             {type: "QUESTION", answers: [], counter: 1, questions: action.payload.questions}
@@ -60,7 +60,7 @@ export const examSlice = createSlice({
         }) => ({type: "CHOOSE_EXAM", keywords: action.payload.keywords}),
         manageExams: (state, action: {
             payload: {
-                existingExams: Questions[]
+                existingExams: IQuestions[]
             }
         }) => {
             if(state.type === "CHOOSE_EXAM"){
@@ -75,7 +75,7 @@ export const examSlice = createSlice({
                 answers: IAnswer[],
                 counter: number,
                 currentAnswer?: string
-                questions: Questions
+                questions: IQuestions
             }
         }) => ({
             type: "QUESTION",

@@ -6,10 +6,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {actions} from "../../redux/examSlice";
 import {FormEvent, useEffect, useState} from "react";
 import {Gender, IResult} from "../../types";
-import {IQuestions} from "../exam/exam";
+import {Questions} from "../exam/exam";
 import {fetchExamKeywords} from "../../redux/thunks";
 
-export const Form = ({examQuestions}: IQuestions) => {
+export const Form = ({examQuestions}: Questions) => {
     const dispatch: Dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.exam);
     const [name, setName] = useState<string | undefined>(undefined);
