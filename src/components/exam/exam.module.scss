@@ -60,6 +60,19 @@
           font-size:18px;
         }
       }
+
+      .leave__btn {
+
+        button {
+          all:unset;
+          cursor: pointer;
+
+          img {
+            max-width: 26px;
+          }
+        }
+
+      }
     }
   }
 }
