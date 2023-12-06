@@ -15,8 +15,9 @@ export const QuestionButton = ({item, index, onShowTooltip}: IQuestionButton) =>
     const dispatch: Dispatch = useDispatch()
 
     return (
-        <div key={item.id} className={classes.step}>
+        <div className={classes.step}>
             <button
+                key={item.id}
                 onClick={() => {
                     if (state) {
                         if (item.id > state.answers.length + 1) {
