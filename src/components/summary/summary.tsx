@@ -45,7 +45,6 @@ export const Summary = ({examQuestions}: Questions) => {
                         </div>
                         {item.options.map((opt) => (
                             <div
-                                key={index + 4}
                                 className={`${classes.option} 
                                     ${(state.result[index].isCorrect && state.result[index].answer === opt)
                                     ? classes.correctAnswer : (!state.result[index].isCorrect && state.result[index].answer === opt) ? classes.incorrectAnswer : ""}`}

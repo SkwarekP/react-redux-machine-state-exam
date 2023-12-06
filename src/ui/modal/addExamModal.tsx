@@ -68,6 +68,10 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
         }
     }, [])
 
+    useEffect(() => {
+        console.log(examAnswers);
+    }, [examAnswers])
+
 
     const eachAnswerHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const update = examAnswers.map((item) => {
@@ -376,8 +380,7 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                         <span>{questionsAndAnswers.questionsCounter + 1}/{questionsAndAnswers.questionsAmount}</span>
                     </div>
                     {examAnswers.map((item, idx) => (
-                        <div className={classes.add__answer}>
-                            {/*key={item.id}*/}
+                        <div className={classes.add__answer} key={item.answerId}>
                             <div className={classes.select__answer}>
                                 <input type="text"
                                        id={(idx + 1).toString()}
