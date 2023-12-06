@@ -18,13 +18,6 @@ export const DataTable = () => {
     const examsListState = useSelector((state: RootState) => state.examsList)
 
     useEffect(() => {
-        if (state.type === "CHOOSE_EXAM") {
-            if (state.keywords) dispatch(fetchAllExams(state.keywords))
-        }
-        //eslint-disable-next-line
-    }, [dispatch, state.type])
-
-    useEffect(() => {
         // if(state.type === "CHOOSE_EXAM") return
         if (examsListState.length !== 0) return
 
@@ -32,10 +25,8 @@ export const DataTable = () => {
     }, [examsListState, dispatch])
 
     useEffect(() => {
-        // if(state.type === "CHOOSE_EXAM") return
         dispatch(fetchAllExams(examsListState))
     }, [examsListState, dispatch])
-
 
     return (
         <div className={classes.wrapper}>

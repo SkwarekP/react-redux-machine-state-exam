@@ -9,6 +9,9 @@ import {Button} from "../atoms/buttons/button";
 import {Tooltip} from "../atoms/tooltip/tooltip";
 import {addNewExamToDB, addNewExamToKeywords} from "../../redux/thunks";
 import {INewExamData} from "../../types";
+import {Dispatch} from "../../redux/store";
+import {useDispatch} from "react-redux";
+import {examsListActions} from "../../redux/examSlice";
 
 export interface IAnswers {
     answerId: number,
@@ -29,6 +32,8 @@ const stars: number[] = [1, 2, 3, 4, 5];
 
 
 export const AddExamModal = ({onConfirm, onClose}: IModal) => {
+
+    const dispatch: Dispatch = useDispatch()
 
     const [examAnswers, setExamAnswers] = useState<IAnswers[]>([
         {answerId: 1, answer: undefined, isCorrect: false},
@@ -68,11 +73,6 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
         }
     }, [])
 
-    useEffect(() => {
-        console.log(examAnswers);
-    }, [examAnswers])
-
-
     const eachAnswerHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const update = examAnswers.map((item) => {
             if (item.answerId.toString() === event.target.id) {
@@ -96,7 +96,10 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
     useEffect(() => {
         if (questionsAndAnswers.questionsCounter === questionsAndAnswers.questionsAmount) {
             addNewExamToDB(questionsAndAnswers)
-                .then((res) => addNewExamToKeywords(res.data.examType!))
+                .then((res) => {
+                    addNewExamToKeywords(res.data.examType!)
+                        .then(() => dispatch(examsListActions.addKeywordToTheEndOfTheList(res.data.examType!)))
+                })
                 .catch((err) => console.log(err.response.data))
                 //error handling to implement
                 .finally(() => onConfirm())
@@ -279,13 +282,14 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                             <div className={classes.stars__wrapper}>
                                 {stars.map((item, index) => (
                                     !questionsAndAnswers.difficultyLevel ? <img
+                                        key={item}
                                         id={(item).toString()}
                                         onClick={(event: any) => setQuestionsAndAnswers({
                                             ...questionsAndAnswers,
                                             difficultyLevel: +event.target.id
                                         })} src={starIcon} alt="starIcon"
                                     /> : item <= questionsAndAnswers.difficultyLevel &&
-                                        <img src={filledStarIcon} alt="filledStar"/>
+                                        <img key={item} src={filledStarIcon} alt="filledStar"/>
                                 ))}
                                 {(questionsAndAnswers.difficultyLevel && !isDisabled) &&
                                     <button onClick={() => setQuestionsAndAnswers({

@@ -17,11 +17,10 @@ export const ManageExamsPage = () => {
 
     const handleModal = () => {
         setIsModalShown(false);
-        dispatch(fetchExamKeywords());
+        dispatch(fetchExamKeywords())
     }
 
     const closeModal = () => setIsModalShown(false);
-
 
     return (
         <div>

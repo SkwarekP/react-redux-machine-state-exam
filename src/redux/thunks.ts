@@ -39,7 +39,7 @@ export const fetchExamKeywords = () => {
         dispatch(actions.loading())
 
         const response: PayloadAction<{ keywords: string[] }, "exam/chooseExam"> | PayloadAction<{ error: AxiosError }, "exam/catchException"> =
-            await axios.get(`${URL}ALL.json`)
+            await axios.get<string[]>(`${URL}ALL.json`)
                 .then((response) => dispatch(actions.chooseExam({keywords: response.data})))
                 .catch((error: AxiosError) => dispatch(actions.catchException({error})))
 
@@ -76,3 +76,4 @@ export const addNewExamToKeywords = async (keyword: string) => {
 
     await axios.put(`${URL}ALL.json`, existingArray)
 }
+

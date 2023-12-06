@@ -12,6 +12,9 @@ export const examsListSlice = createSlice({
                     return state.push(item)
                 })
             }
+        },
+        addKeywordToTheEndOfTheList(state, action) {
+            state.push(action.payload);
         }
     }
 })
