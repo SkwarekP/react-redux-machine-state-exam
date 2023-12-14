@@ -1,14 +1,15 @@
 .wrapper {
-  padding: 1rem 1rem .25rem 1rem;
+  padding: 1rem 2.25rem .25rem 2.25rem;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -45%);
+  transform: translate(-50%, -40%);
   box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
   min-width: unset;
+  height:100%;
   width: 80%;
   z-index: 40;
-  border-radius: 10px;
+  //border-radius: 10px;
   background: #FFFFFF;
   overflow: auto;
 
@@ -18,6 +19,8 @@
     button {
       all: unset;
       cursor: pointer;
+      margin-right:-20px;
+      margin-top:10px;
 
       img {
         max-width: 20px;
@@ -210,10 +213,22 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 968px) {
   .wrapper {
     max-width: 600px;
-    padding: 1rem 1.5rem 1rem 1.5rem;
+    padding: 1rem 1.25rem 1rem 1.25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -45%);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+    min-width: unset;
+    height:unset;
+    width: 80%;
+    z-index: 40;
+    border-radius: 10px;
+    background: #FFFFFF;
+    overflow: auto;
 
     button {letter-spacing: .5px}
 
@@ -223,6 +238,8 @@
       button {
         all: unset;
         cursor: pointer;
+        margin-right:unset;
+        margin-top:unset;
 
         img {
           max-width: 26px;
