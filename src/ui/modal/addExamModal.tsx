@@ -48,7 +48,7 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
             questionsCounter: 0,
             examType: undefined,
             answersAmount: 4,
-            category: 'programming',
+            category: undefined,
             difficultyLevel: undefined,
             examTime: "No time limit",
             questionsAmount: 5,
@@ -110,7 +110,9 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
     const confirmGeneralOptionsHandler = () => {
         if (isDisabled) return
 
-        if (questionsAndAnswers.examType && questionsAndAnswers.difficultyLevel) setIsDisabled(true);
+        if (questionsAndAnswers.examType
+            && questionsAndAnswers.difficultyLevel
+            && (questionsAndAnswers.category && questionsAndAnswers.category !== "")) setIsDisabled(true);
     }
 
     const nextQuestionHandler = () => {
@@ -245,33 +247,35 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                                 <label>Test name</label>
                             </div>
                             <input type="text"
+                                   maxLength={26}
                                    onChange={(event) => setQuestionsAndAnswers({
                                        ...questionsAndAnswers,
                                        examType: event.target.value
                                    })}
                                    disabled={isDisabled}
-                                   className={isDisabled ? classes.input__disabled : undefined}
+                                   className={`${isDisabled ? classes.input__disabled : undefined} ${classes.input__test_name}`}
                             />
                         </div>
                         <div className={classes.row__item}>
                             <div>
                                 <label>Category</label>
                             </div>
-                            <div>
-                                <select
-                                    onChange={(event) => setQuestionsAndAnswers({
-                                        ...questionsAndAnswers,
-                                        category: event.target.value
-                                    })}
-                                    disabled={isDisabled}
-                                    className={isDisabled ? classes.input__disabled : undefined}
-                                >
+                                <input type="text"
+                                       className={isDisabled ? classes.input__disabled : undefined}
+                                       disabled={isDisabled}
+                                       maxLength={18}
+                                       list="categories"
+                                           onChange={(event) => setQuestionsAndAnswers({
+                                               ...questionsAndAnswers,
+                                               category: event.target.value
+                                           })}
+                                />
+                                <datalist id="categories">
                                     <option>programming</option>
                                     <option>language</option>
                                     <option>geography</option>
                                     <option>chemistry</option>
-                                </select>
-                            </div>
+                                </datalist>
                         </div>
                     </div>
                     <div className={classes.row}>
@@ -363,7 +367,7 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                     </div>
                     <div className={classes.confirm__btn__wrapper}>
                         <Button
-                            disabled={(!questionsAndAnswers.examType || !questionsAndAnswers.difficultyLevel) || isDisabled}
+                            disabled={(!questionsAndAnswers.examType || !questionsAndAnswers.difficultyLevel || !questionsAndAnswers.category) || isDisabled}
                             onClick={confirmGeneralOptionsHandler}
                         >
                             Confirm
@@ -423,7 +427,7 @@ export const AddExamModal = ({onConfirm, onClose}: IModal) => {
                         disabled={!isDisabled}
                         onClick={(event) => previousQuestionHandler(event)}
                     >
-                        previous
+                        Previous
                     </Button>
                     <Button
                         disabled={!isDisabled}
