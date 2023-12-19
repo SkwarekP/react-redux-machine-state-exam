@@ -9,7 +9,6 @@
   height:100%;
   width: 80%;
   z-index: 40;
-  //border-radius: 10px;
   background: #FFFFFF;
   overflow: auto;
 
@@ -29,14 +28,14 @@
   }
 
   .topHeader__wrapper {
+
     .row {
       display: flex;
-      //align-items: center;
+      align-items: center;
       margin: 0 0 .25rem 0;
       justify-content: space-between;
 
       .row__item {
-        //flex:1 1 100%;
         text-align: left;
 
         div {
@@ -73,6 +72,7 @@
         .input__disabled {
           all: unset;
           font-size: 12px;
+          max-width:90px;
         }
       }
 
@@ -96,7 +96,7 @@
       }
 
       input {
-        max-width: 125px;
+        max-width: 90px;
         display: block;
         border-top: none;
         border-left: none;
@@ -107,10 +107,6 @@
 
     }
 
-    //.row:last-child {
-    //  margin-top: .5rem;
-    //  align-items: center
-    //}
   }
 
   .add__question__panel {
@@ -213,7 +209,7 @@
   }
 }
 
-@media (min-width: 968px) {
+@media (min-width: 768px) {
   .wrapper {
     max-width: 600px;
     padding: 1rem 1.25rem 1rem 1.25rem;
@@ -228,7 +224,7 @@
     z-index: 40;
     border-radius: 10px;
     background: #FFFFFF;
-    overflow: auto;
+    overflow: hidden;
 
     button {letter-spacing: .5px}
 
@@ -254,14 +250,14 @@
     .topHeader__wrapper {
       .row {
         display: flex;
-        margin: 0 0 .25rem 0;
+        margin: 0 2rem .5rem 0;
         justify-content: space-between;
 
         .row__item {
           text-align: left;
 
           div {
-            min-width: 150px;
+            min-width: 400px;
           }
 
           label {
@@ -294,7 +290,12 @@
           .input__disabled {
             all: unset;
             margin:.35rem 0;
-            font-size: 20px;
+            font-size: 18px;
+            max-width:175px;
+          }
+
+          .input__test_name {
+            min-width:250px;
           }
         }
 
@@ -304,7 +305,6 @@
           cursor: pointer;
           background: unset;
           font-size: 14px;
-
         }
 
         select {
@@ -314,13 +314,12 @@
         }
 
         input {
-          min-width: 300px;
+          max-width:175px;
           display: block;
           border-top: none;
           border-left: none;
           border-right: none;
           border-bottom: 1px solid black;
-
         }
 
       }
