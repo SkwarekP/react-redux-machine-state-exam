@@ -12,7 +12,7 @@ interface IQuestionListProps {
 export const QuestionList: React.FC<IQuestionListProps> = ({onAnswer, questions}) => {
     const state = useSelector((state: RootState) => state.exam)
     const [currentAnswer, setCurrentAnswer] = useState<string | undefined>(undefined)
-
+    
     useEffect(() => {
         if (state.type === "QUESTION") {
             if (state?.answers[state.counter - 1]?.answer) {

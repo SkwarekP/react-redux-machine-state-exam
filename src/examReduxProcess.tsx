@@ -18,11 +18,15 @@ export const ExamReduxProcess = () => {
     state?.exam?.questions?.examType);
     const dispatch: Dispatch = useDispatch();
 
+    // const exams = dispatch(fetchExamKeywords())
+
+    // console.log(exams);
     useEffect(() => {
         dispatch(fetchExamKeywords())
     }, [dispatch])
 
 
+    console.log(state);
     switch (state.type){
         case "QUESTION":
             switch (examType){
@@ -54,9 +58,9 @@ export const ExamReduxProcess = () => {
                 <Introduction />
                 <div className={classes.wrapper}>
                     {state?.keywords?.map((exam, idx) => {
-                        if(exam === "SEESHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>C#</Button>
-                        if(exam === "FSHARP") return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>F#</Button>
-                        return <Button key={idx} onClick={() => dispatch(fetchExam(exam))}>{exam}</Button>
+                        return <Button key={idx} onClick={() => {
+                            dispatch(fetchExam(exam))
+                        }}>{exam}</Button>
                     })}
                 </div>
             </>

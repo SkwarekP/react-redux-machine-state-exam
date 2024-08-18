@@ -39,6 +39,8 @@ export const Exam = ({examQuestions}: Questions) => {
     const handleModal = () => dispatch(fetchExamKeywords())
     const closeModal = () => setIsModalShown(false);
 
+    console.log(state);
+
     const handleNextQuestion = () => {
         if(isSavedOrUpdated.isSaved || isSavedOrUpdated.isUpdated) return
 
