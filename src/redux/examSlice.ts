@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ExamState, IAnswer, IPersonalInfo, IResult, IQuestions} from "../types";
+import {ExamState, IAnswer, IPersonalInfo, IResult, IQuestions, IExam} from "../types";
 import {AxiosError} from "axios";
 
 export const examsListSlice = createSlice({
@@ -30,7 +30,7 @@ export const examSlice = createSlice({
                 return {
                     type: "FINISH_EXAM",
                     result: [...state.answers],
-                    questions: state.questions
+                    exam: state.exam
                 }
             }
         },
@@ -45,16 +45,16 @@ export const examSlice = createSlice({
                     type: "SUMMARY",
                     result: action.payload.result,
                     personalInfo: action.payload.personalInfo,
-                    questions: state.questions
+                    exam: state.exam
                 }
             }
         },
         startExam: (state, action: {
             payload: {
-                questions: IQuestions
+                exam: IExam
             }
         }) => (
-            {type: "QUESTION", answers: [], counter: 1, questions: action.payload.questions}
+            {type: "QUESTION", answers: [], counter: 1, exam: action.payload.exam}
         ),
         chooseExam: (state, action: {
             payload: {
@@ -78,7 +78,7 @@ export const examSlice = createSlice({
                 answers: IAnswer[],
                 counter: number,
                 currentAnswer?: string
-                questions: IQuestions
+                exam: IExam
             }
         }) => ({
             type: "QUESTION",
@@ -94,7 +94,7 @@ export const examSlice = createSlice({
                 return {
                     type: "QUESTION",
                     ...action.payload,
-                    questions: state.questions
+                    exam: state.exam
                 }
             }
         },
@@ -111,7 +111,7 @@ export const examSlice = createSlice({
                         counter: state.counter + 1,
                         answers: answers_,
                         answer: action.payload.currentAnswer,
-                        questions: state.questions
+                        exam: state.exam
                     }
             }
         },

@@ -2,14 +2,14 @@ import classes from "./questionList.module.scss";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 import React, {useEffect, useState} from "react";
-import {IQuestions} from "../../types";
+import {IExam} from "../../types";
 
-interface IQuestionListProps {
+interface Props {
     onAnswer: (answer: string | undefined) => void
-    questions: IQuestions
+    exam: IExam
 }
 
-export const QuestionList: React.FC<IQuestionListProps> = ({onAnswer, questions}) => {
+export const QuestionList: React.FC<Props> = ({onAnswer, exam}) => {
     const state = useSelector((state: RootState) => state.exam)
     const [currentAnswer, setCurrentAnswer] = useState<string | undefined>(undefined)
     
@@ -23,13 +23,13 @@ export const QuestionList: React.FC<IQuestionListProps> = ({onAnswer, questions}
     }, [state, onAnswer])
 
     return <>
-        {state.type === "QUESTION" && questions?.questions?.map((item, idx) => {
+        {state.type === "QUESTION" && exam?.questions?.map((item, idx) => {
                 if (state.counter - 1 === idx) {
                     return <div key={state.counter}>
                         <div className={classes.question}>
                             <p>{item.question}</p>
                         </div>
-                        {item.options.map((opt, optIdx) => (
+                        {item.answers.map((opt, optIdx) => (
                             <div key={opt}>
                                 <label htmlFor={`answer-${optIdx}`} className={classes.option}>
                                     <input

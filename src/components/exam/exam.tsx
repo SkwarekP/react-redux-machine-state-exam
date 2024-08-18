@@ -1,6 +1,6 @@
 import classes from "./exam.module.scss"
 import {Button} from "../../ui/atoms/buttons/button";
-import {IQuestions} from "../../types";
+import {IExam} from "../../types";
 import {useDispatch, useSelector} from "react-redux";
 import {Dispatch, RootState} from "../../redux/store";
 import {actions} from "../../redux/examSlice";
@@ -15,8 +15,8 @@ import {Backdrop} from "../../ui/modal/backdrop";
 import {Error} from "../../ui/error/error";
 import crossIcon from "../../ui/atoms/icons/cross.png";
 
-export interface Questions {
-    examQuestions: IQuestions
+export interface Props {
+    exam: IExam
 }
 
 interface ISavedUpdated {
@@ -24,7 +24,7 @@ interface ISavedUpdated {
     isUpdated: boolean
 }
 
-export const Exam = ({examQuestions}: Questions) => {
+export const Exam = ({exam}: Props) => {
     const dispatch: Dispatch = useDispatch();
     const [answer, setAnswer] = useState<string | undefined>(undefined);
     const [isValid, setIsValid] = useState<boolean>(true);
@@ -68,7 +68,7 @@ export const Exam = ({examQuestions}: Questions) => {
             setTooltipMessage("The answer has been saved.")
             setIsSavedOrUpdated({...isSavedOrUpdated, isSaved: true})
 
-            if(state.counter === examQuestions.questions.length) {
+            if(state.counter === exam?.questionsAmount) {
                 dispatch(actions.finishExam())
             }
         }
@@ -94,6 +94,7 @@ export const Exam = ({examQuestions}: Questions) => {
         }
     }
 
+    console.log(exam);
     useEffect(() => {
         const showErrorTooltipCooldown = setTimeout(() => {
             setIsValid(true);
@@ -112,17 +113,17 @@ export const Exam = ({examQuestions}: Questions) => {
 
     return (
         <>
-            {examQuestions ? <>
-                <ExamTracking examQuestions={examQuestions} onShowTooltip={(message: string) => {
+            {exam ? <>
+                <ExamTracking exam={exam} onShowTooltip={(message: string) => {
                     setTooltipMessage(message)
                     setIsValid(false)
                 }}/>
                 <div className={classes.wrapper}>
                     <div className={classes.header}>
-                        <div><h3>Question {state.type === "QUESTION" && state.counter}/{examQuestions?.questions?.length}</h3></div>
+                        <div><h3>Question {state.type === "QUESTION" && state.counter}/{exam?.questionsAmount}</h3></div>
                         <div className={classes.leave__btn}><button onClick={() => setIsModalShown(true)}><img src={crossIcon} alt="crossIcon" /></button></div>
                     </div>
-                    <QuestionList questions={examQuestions} onAnswer={onAnswer} />
+                    <QuestionList exam={exam} onAnswer={onAnswer} />
                     <div className={classes.button__list}>
                         <Button onClick={handlePreviousQuestion}>
                             previous

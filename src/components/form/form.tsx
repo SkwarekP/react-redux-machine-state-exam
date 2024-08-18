@@ -5,11 +5,14 @@ import {Dispatch, RootState} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {actions} from "../../redux/examSlice";
 import {FormEvent, useEffect, useState} from "react";
-import {Gender, IResult} from "../../types";
-import {Questions} from "../exam/exam";
+import {Gender, IExam, IResult} from "../../types";
 import {fetchExamKeywords} from "../../redux/thunks";
 
-export const Form = ({examQuestions}: Questions) => {
+interface Props {
+    exam: IExam
+}
+
+export const Form = ({exam}: Props) => {
     const dispatch: Dispatch = useDispatch();
     const state = useSelector((state: RootState) => state.exam);
     const [name, setName] = useState<string | undefined>(undefined);
@@ -38,9 +41,10 @@ export const Form = ({examQuestions}: Questions) => {
 
     useEffect(() => {
         if(state.type === "FINISH_EXAM") {
-            const correctAnswers = examQuestions.questions.map((item) => {
-                return {id: item.id, correctAnswer: item.correctAnswer}
+            const correctAnswers = exam.questions.map((item) => {
+                return {id: item.questionId, correctAnswer: item.answers[0]}
             })
+            //to correct
 
             const checkedAnswers = state?.result.map((item, index) => {
                 if(correctAnswers[index]?.correctAnswer === item.answer) {

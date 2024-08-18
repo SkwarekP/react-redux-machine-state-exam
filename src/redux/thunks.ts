@@ -1,7 +1,7 @@
 import { Dispatch } from "./store";
 import { actions, examsListActions } from "./examSlice";
 import axios, { AxiosError } from "axios";
-import { Exam, INewExamData, IQuestions } from "../types";
+import { IExam, INewExamData, IQuestions } from "../types";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 const URL: string = process.env.REACT_APP_REALTIME_DATABASE!
@@ -23,9 +23,9 @@ export const fetchExam = (examName: string) => {
     return async (dispatch: Dispatch) => {
         dispatch(actions.loading())
 
-        const response: PayloadAction<{ questions: IQuestions }, "exam/startExam"> | PayloadAction<{ error: AxiosError }, "exam/catchException"> =
+        const response: PayloadAction<{ exam: IExam }, "exam/startExam"> | PayloadAction<{ error: AxiosError }, "exam/catchException"> =
             await axios.get(`http://localhost:3002/exams/name/${examName}`)
-                .then((response) => dispatch(actions.startExam({ questions: response.data })))
+                .then((response) => dispatch(actions.startExam({ exam: response.data })))
                 .catch((error: AxiosError) => dispatch(actions.catchException({ error })));
 
         console.log(response);
@@ -53,7 +53,7 @@ export const fetchExamKeywords = () => {
         dispatch(actions.loading())
 
         const response =
-            await axios.get<Exam[]>(`http://localhost:3002/exams`)
+            await axios.get<IExam[]>(`http://localhost:3002/exams`)
                 .then((res) => {
                     const keywords = res?.data?.map((exam) => exam.name)
                     dispatch(actions.chooseExam({keywords}))
