@@ -15,7 +15,7 @@ export interface QuestionsCorrect {
     question: string;
     answers: string[];    
 }
-export interface Exam {
+export interface IExam {
     examId: number,
     time: number | undefined,
     createdAt: string,
@@ -25,7 +25,7 @@ export interface Exam {
     name: string;
     category: string;
     status: ExamStatus;
-    questions?: QuestionsCorrect[];
+    questions: QuestionsCorrect[];
 }
 export interface IQuestions {
     examType?: string | ExamType,
@@ -114,7 +114,7 @@ export type ExamState =
         answers: IAnswer[]
         counter: number
         answer?: string
-        questions: IQuestions
+        exam: IExam
     }
     | {
         type: "EXCEPTION",
@@ -123,11 +123,11 @@ export type ExamState =
     | {
         type: "FINISH_EXAM"
         result: IAnswer[]
-        questions: IQuestions
+        exam: IExam
     }
     | {
         type: "SUMMARY"
         personalInfo: IPersonalInfo
         result: IResult[]
-        questions: IQuestions
+        exam: IExam
     }

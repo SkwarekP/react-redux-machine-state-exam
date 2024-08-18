@@ -1,29 +1,29 @@
 import classes from "./examTracking.module.scss"
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
-import {IQuestions} from "../../types";
+import {IExam} from "../../types";
 import {useEffect, useState} from "react";
 import {QuestionButton} from "./QuestionButton";
 import rightArrowIcon from "../../ui/atoms/icons/right-arrow.png";
 import leftArrowIcon from "../../ui/atoms/icons/left.png";
 
-interface IExamTracking {
-    examQuestions: IQuestions
+interface Props {
+    exam: IExam
     onShowTooltip: (message: string) => void
 }
 
 
-export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
+export const ExamTracking = ({exam, onShowTooltip}: Props) => {
 
     const state = useSelector((state: RootState) => state.exam.type === "QUESTION" && state.exam)
     const [isPaginationNeeded, setIsPaginationNeeded] = useState(false);
     const [nextQuestions, setNextQuestions] = useState(false);
 
     useEffect(() => {
-        if (examQuestions.questions.length >= 30) {
+        if (exam.answersAmount >= 30) {
             setIsPaginationNeeded(true);
         }
-    }, [examQuestions])
+    }, [exam.answersAmount])
 
     useEffect(() => {
         if (state) {
@@ -44,12 +44,12 @@ export const ExamTracking = ({examQuestions, onShowTooltip}: IExamTracking) => {
                     </button>
                     <div className={`${classes.line} ${classes.filledLine}`}/>
                 </>}
-                {examQuestions?.questions?.map((item, index) => {
+                {exam?.questions?.map((item, index) => {
                         if (isPaginationNeeded) {
-                            if ((Math.floor(examQuestions.questions.length / 2) >= item.id) && !nextQuestions) {
+                            if ((Math.floor(exam?.answersAmount / 2) >= item.questionId) && !nextQuestions) {
                                 return <QuestionButton item={item} index={index} onShowTooltip={onShowTooltip}/>
                             }
-                            if ((Math.floor(examQuestions.questions.length / 2) < item.id) && nextQuestions) {
+                            if ((Math.floor(exam?.answersAmount / 2) < item.questionId) && nextQuestions) {
                                 return <QuestionButton item={item} index={index} onShowTooltip={onShowTooltip}/>
                             }
                         } else {
